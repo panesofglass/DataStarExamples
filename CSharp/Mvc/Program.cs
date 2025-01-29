@@ -23,9 +23,8 @@ app.UseAuthorization();
 // Add attribute routing before conventional routes
 app.MapControllers();
 
-// Keep the default route as a fallback
 app.MapControllerRoute(
     "default",
-    "{controller=Home}/{action=ActiveSearch}/{id?}");
+    "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
