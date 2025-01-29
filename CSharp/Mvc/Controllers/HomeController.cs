@@ -80,7 +80,7 @@ public class HomeController : Controller
             var count = _random.Next(25, 134);
             var todoFaker = new Faker<Note>()
                 .RuleFor(t => t.Id, f => f.IndexFaker + 1)
-                .RuleFor(t => t.Content, f => f.Lorem.Paragraph());
+                .RuleFor(t => t.Content, f => f.Lorem.Sentence());
 
             _notes = todoFaker.Generate(count);
             _totalNoteCount = _notes.Count;
