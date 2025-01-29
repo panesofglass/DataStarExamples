@@ -1,86 +1,79 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    @* <meta http-equiv="refresh" content="5" /> *@
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/css/demo.css" asp-append-version="true"/>
-    <script type="module"
-            src="https://cdn.jsdelivr.net/gh/starfederation/datastar@v1.0.0-beta.2/bundles/datastar.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="description"
+          content="DataStar ASP.NET Core example projects showcasing various web development approaches and data visualizations">
+    <link rel="stylesheet" href="~/css/pico.classless.min.css" />
+    <link rel="stylesheet" href="~/css/custom.css" />
+    <link rel="stylesheet" href="~/css/all.min.css" />
+    <title>DataStar ASP.NET Core Examples</title>
+    <script src="https://cdn.jsdelivr.net/gh/starfederation/datastar@v1.0.0-beta.2/bundles/datastar.js"
+            type="module"></script>
+    <script>
+      window.addEventListener('load', () => {
+        const navContainer = document.querySelector('.nav-container');
+        const activeItem = document.querySelector('.nav-item.active');
+        
+        if (activeItem && navContainer) {
+            // Scroll active item into view
+            activeItem.scrollIntoView({ 
+                block: 'nearest',
+                inline: 'center'
+            });
+            
+            // Check scroll position and update indicators
+            const checkScroll = () => {
+                const { scrollLeft, scrollWidth, clientWidth } = navContainer;
+                
+                // Remove all scroll classes
+                navContainer.classList.remove('scroll-start', 'scroll-end', 'can-scroll');
+                
+                // Add appropriate scroll classes
+                if (scrollWidth > clientWidth) {
+                    navContainer.classList.add('can-scroll');
+                    
+                    if (scrollLeft <= 0) {
+                        navContainer.classList.add('scroll-start');
+                    }
+                    if (scrollLeft + clientWidth >= scrollWidth) {
+                        navContainer.classList.add('scroll-end');
+                    }
+                }
+            };
+            
+            // Check scroll on load
+            checkScroll();
+            
+            // Check scroll on scroll event
+            navContainer.addEventListener('scroll', checkScroll);
+            
+            // Check scroll on resize
+            window.addEventListener('resize', checkScroll);
+        }
+      });
+    </script>
 </head>
 <body>
-<div class="demo-container">
-    <!-- Left Sidebar -->
-    <aside class="demo-sidebar" aria-label="Examples navigation">
-        <a href="/" style="text-decoration: none;">
-            <h1>DATASTAR Examples</h1>
-        </a>
-        <p style="color: #C9A75F">PORTED HTMX EXAMPLES</p>
-        <nav class="demo-nav">
-            <ul role="list">
-                <li><a href="/click-to-edit" class="demo-link">CLICK TO EDIT <span class="status">TODO</span></a></li>
-                <li><a href="/bulk-update" class="demo-link">BULK UPDATE <span class="status">TODO</span></a></li>
-                <li><a href="/click-to-load" class="demo-link">CLICK TO LOAD <span class="status">TODO</span></a></li>
-                <li><a href="/delete-row" class="demo-link">DELETE ROW <span class="status">TODO</span></a></li>
-                <li><a href="/edit-row" class="demo-link">EDIT ROW <span class="status">TODO</span></a></li>
-                <li><a href="/lazy-load" class="demo-link">LAZY LOAD <span class="status">TODO</span></a></li>
-                <li><a href="/loading-indicator" class="demo-link">LOADING INDICATOR <span
-                            class="status">TODO</span></a></li>
-                <li><a href="/inline-validation" class="demo-link">INLINE VALIDATION <span
-                            class="status">TODO</span></a></li>
-                <li><a href="/infinite-scroll" class="demo-link">INFINITE SCROLL <span class="status">TODO</span></a>
-                </li>
-                <li><a href="/active-search" class="demo-link">ACTIVE SEARCH</a></li>
-                <li><a href="/progress-bar" class="demo-link">PROGRESS BAR <span class="status">TODO</span></a></li>
-                <li><a href="/value-select" class="demo-link">VALUE SELECT <span class="status">TODO</span></a></li>
-                <li><a href="/animations" class="demo-link">ANIMATIONS <span class="status">TODO</span></a></li>
-                <li><a href="/file-upload" class="demo-link">FILE UPLOAD <span class="status">TODO</span></a></li>
-                <li><a href="/dialogs-browser" class="demo-link">DIALOGS BROWSER <span class="status">TODO</span></a>
-                </li>
-                <li><a href="/lazy-tabs" class="demo-link">LAZY TABS <span class="status">TODO</span></a></li>
-                <li><a href="/sortable" class="demo-link">SORTABLE <span class="status">TODO</span></a></li>
-            </ul>
-        </nav>
-    </aside>
-
-    <!-- Right Content Area -->
-    <main class="demo-content" role="main" aria-label="Example content">
-        @RenderBody()
-    </main>
-</div>
-
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", false)
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const links = document.querySelectorAll('.demo-link');
-        const currentPath = window.location.pathname;
-
-        // Remove active class from all links
-        links.forEach(l => l.classList.remove('active'));
-
-        // If we're at the root, activate ActiveSearch
-        if (currentPath === '/' || currentPath.toLowerCase() === '/home') {
-            window.location.href = '/active-search';
-        } else {
-            // Otherwise highlight the current page link
-            links.forEach(link => {
-                if (link.getAttribute('href') === currentPath) {
-                    link.classList.add('active');
-                    // Scroll the active link into view with some padding
-                    setTimeout(() => {
-                        link.scrollIntoView({behavior: 'smooth', block: 'center'});
-                    }, 100);
-                }
-            });
-        }
-    });
-</script>
+<main id="main-content" class="container">
+    <div class="header-container" role="banner">
+        <div class="header-logos">
+            <a href="https://data-star.dev" aria-label="View DataStar Examples on GitHub">
+                <img src="~/img/rocket.webp" alt="DataStar logo" width="40" height="40">
+            </a>
+            <a href="https://github.com/RickTheHat/DataStarExamples" aria-label="Visit Rick's GitHub profile">
+                <img src="~/img/rick.jpg" alt="Author profile" width="40" height="40" class="profile">
+            </a>
+        </div>
+        <h1>
+            <a href="/" style="text-decoration: none; color: inherit;">
+                DataStar ASP.NET Core Examples
+            </a>
+        </h1>
+    </div>
+    @RenderBody()
+</main>
 </body>
 </html>

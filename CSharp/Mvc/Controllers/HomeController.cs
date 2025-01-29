@@ -15,7 +15,22 @@ public class HomeController : Controller
     [Route("")]
     public IActionResult Index()
     {
-        return RedirectToAction("ActiveSearch");
+        if (_notes == null)
+        {
+            var count = _random.Next(25, 102);
+            var todoFaker = new Faker<Note>()
+                .RuleFor(t => t.Id, f => f.IndexFaker + 1)
+                .RuleFor(t => t.Content, f => f.Lorem.Sentence());
+
+            _notes = todoFaker.Generate(count);
+            _totalNoteCount = _notes.Count;
+        }
+
+        ViewData["TotalCount"] = _totalNoteCount;
+        var displayNotes = _notes.Take(5).ToList();
+        ViewData["CurrentCount"] = displayNotes.Count;
+
+        return View(displayNotes);
     }
 
     [Route("click-to-edit")]
@@ -77,7 +92,7 @@ public class HomeController : Controller
     {
         if (_notes == null)
         {
-            var count = _random.Next(25, 134);
+            var count = _random.Next(25, 102);
             var todoFaker = new Faker<Note>()
                 .RuleFor(t => t.Id, f => f.IndexFaker + 1)
                 .RuleFor(t => t.Content, f => f.Lorem.Sentence());
