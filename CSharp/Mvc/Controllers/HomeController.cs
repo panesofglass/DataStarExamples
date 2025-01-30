@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Bogus;
 using Microsoft.AspNetCore.Mvc;
 using Mvc.Helpers;
@@ -5,14 +6,12 @@ using Mvc.Models;
 
 namespace Mvc.Controllers;
 
-[Route("/")]
 public class HomeController : Controller
 {
     private static List<Note> _notes;
     private static int _totalNoteCount;
     private readonly Random _random = new();
-
-    [Route("")]
+    
     public IActionResult Index()
     {
         if (_notes == null)
@@ -189,5 +188,11 @@ public class HomeController : Controller
     public IActionResult Sortable()
     {
         return View();
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
