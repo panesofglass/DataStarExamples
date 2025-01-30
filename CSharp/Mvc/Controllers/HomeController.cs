@@ -20,8 +20,20 @@ public class HomeController : Controller
             var todoFaker = new Faker<Note>()
                 .RuleFor(t => t.Id, f => f.IndexFaker + 1)
                 .RuleFor(t => t.Content, f => f.Lorem.Sentence());
-
-            _notes = todoFaker.Generate(count);
+            
+            _notes = todoFaker.Generate(count).ToList();
+            
+            // Add exactly 3 notes with "hello"
+            for (var i = 0; i < 3; i++)
+            {
+                var randomIndex = _random.Next(_notes.Count);
+                _notes[randomIndex] = new Note
+                {
+                    Id = _notes[randomIndex].Id,
+                    Content = $"Hello! {new Faker().Lorem.Sentence()}"
+                };
+            }
+            
             _totalNoteCount = _notes.Count;
         }
 
@@ -96,7 +108,19 @@ public class HomeController : Controller
                 .RuleFor(t => t.Id, f => f.IndexFaker + 1)
                 .RuleFor(t => t.Content, f => f.Lorem.Sentence());
 
-            _notes = todoFaker.Generate(count);
+            _notes = todoFaker.Generate(count).ToList();
+
+            // Add exactly 3 notes with "hello"
+            for (var i = 0; i < 3; i++)
+            {
+                var randomIndex = _random.Next(_notes.Count);
+                _notes[randomIndex] = new Note
+                {
+                    Id = _notes[randomIndex].Id,
+                    Content = $"Hello! {new Faker().Lorem.Sentence()}"
+                };
+            }
+            
             _totalNoteCount = _notes.Count;
         }
 
