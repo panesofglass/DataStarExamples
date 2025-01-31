@@ -1,6 +1,7 @@
 :root {
     --primary-color: #957B44;
     --primary-hover: #b39552;
+    --primary-light: #C9A75F;
     --text-color: #ffffff;
     --background-color: #24344B;
     --container-width: 1200px;
@@ -16,7 +17,7 @@ body {
 
 /* Improve color contrast for accessibility */
 a {
-    color: var(--primary-color);
+    color: var(--primary-light);
     text-decoration-thickness: 1px;
     text-underline-offset: 2px;
 }
@@ -168,13 +169,13 @@ a:focus-visible {
 
 .demo-icon {
     font-size: 2rem;
-    color: #957B44;
+    color: var(--primary-light);
     width: 48px;
     height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(149, 123, 68, 0.1);
+    background: rgba(201, 167, 95, 0.1);
     border-radius: 8px;
     flex-shrink: 0;
 }
@@ -182,14 +183,14 @@ a:focus-visible {
 .demo-link h2 {
     margin: 0;
     font-size: 1.25rem;
-    color: #957B44;
+    color: var(--primary-light);
     border-bottom: none;
     padding-bottom: 0;
 }
 
 .demo-link p {
     margin: 0;
-    opacity: 0.8;
+    opacity: 0.9;
     font-size: 0.9rem;
     line-height: 1.5;
 }
@@ -210,7 +211,7 @@ a:focus-visible {
 }
 
 .featured-demo h2 {
-    color: #957B44;
+    color: var(--primary-light);
     margin: 0 0 0.5rem 0;
     display: flex;
     align-items: center;
@@ -218,16 +219,16 @@ a:focus-visible {
 }
 
 .featured-demo h2 span {
-    background: rgba(149, 123, 68, 0.2);
+    background: rgba(201, 167, 95, 0.2);
     padding: 0.25rem 0.75rem;
     border-radius: 4px;
     font-size: 0.9rem;
-    color: #957B44;
+    color: var(--primary-light);
 }
 
 .featured-demo p {
     margin: 0.5rem 0;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .featured-demo .demo-preview {
@@ -261,7 +262,7 @@ a:focus-visible {
 }
 
 .project-status h2 {
-    color: #957B44;
+    color: var(--primary-light);
     margin: 0 0 1rem 0;
 }
 
@@ -340,12 +341,14 @@ a:focus-visible {
 }
 
 .status-content a {
+    color: var(--primary-light);
     font-weight: 500;
     text-decoration: none;
 }
 
 .status-content a:hover {
     text-decoration: underline;
+    color: var(--primary-hover);
 }
 
 .status-type {
@@ -423,7 +426,7 @@ a:focus-visible {
 }
 
 .intro-section h2 {
-    color: #957B44;
+    color: var(--primary-light);
     margin: 0 0 1rem 0;
     font-size: 1.5rem;
 }
@@ -456,7 +459,7 @@ a:focus-visible {
 }
 
 .benefits-section h2 {
-    color: #957B44;
+    color: var(--primary-light);
     margin: 0 0 1.5rem 0;
     font-size: 1.5rem;
 }
@@ -494,7 +497,7 @@ a:focus-visible {
 
 .benefit-title {
     font-weight: 600;
-    color: #957B44;
+    color: var(--primary-light);
     margin: 0 0 0.25rem 0;
 }
 
@@ -513,7 +516,7 @@ a:focus-visible {
 }
 
 .why-use-section h2 {
-    color: #957B44;
+    color: var(--primary-light);
     margin: 0 0 1.5rem 0;
     font-size: 1.5rem;
 }
@@ -539,7 +542,7 @@ a:focus-visible {
 
 .feature-title {
     font-weight: 600;
-    color: #957B44;
+    color: var(--primary-light);
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -791,10 +794,10 @@ a:focus-visible {
 
 .demo-nav-link {
     padding: 0.75rem 1.25rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(201, 167, 95, 0.1);
+    border: 1px solid var(--primary-light);
     border-radius: 6px;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--primary-light);
     text-decoration: none;
     transition: all 0.2s ease;
     font-size: 0.9rem;
@@ -802,9 +805,9 @@ a:focus-visible {
 }
 
 .demo-nav-link:hover {
-    background: #957B44;
-    border-color: #957B44;
-    color: white;
+    background: var(--primary-light);
+    border-color: var(--primary-light);
+    color: var(--background-color);
     transform: translateY(-1px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
@@ -902,8 +905,8 @@ a:focus-visible {
     max-width: 800px;
     margin: 1rem auto;
     padding: 1rem;
-    background-color: #AE9152;
-    color: white;
+    background-color: var(--primary-light);
+    color: var(--background-color);
     text-align: center;
     text-decoration: none;
     border-radius: 6px;
@@ -914,10 +917,10 @@ a:focus-visible {
 }
 
 .demo-button:hover {
-    background-color: #957B44;
+    background-color: var(--primary-hover);
     transform: translateY(-1px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    color: white;
+    color: var(--background-color);
 }
 
 @media (max-width: 768px) {

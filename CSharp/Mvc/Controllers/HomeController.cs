@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text.Json;
 using Bogus;
 using Microsoft.AspNetCore.Mvc;
 using Mvc.Helpers;
@@ -23,7 +24,7 @@ public class HomeController : Controller
             
             _notes = todoFaker.Generate(count).ToList();
             
-            // Add exactly 3 notes with "hello"
+            // Add 3 notes with "hello"
             for (var i = 0; i < 3; i++)
             {
                 var randomIndex = _random.Next(_notes.Count);
@@ -135,7 +136,7 @@ public class HomeController : Controller
     [Route("search")]
     public async Task Search()
     {
-        await SseHelper.SetSseHeaders(Response);
+        await SseHelper.SetSseHeadersAsync(Response);
 
         using var reader = new StreamReader(Request.Body);
         var body = await reader.ReadToEndAsync();
@@ -148,7 +149,7 @@ public class HomeController : Controller
         var countsHtml = filteredNotes.Count == 0
             ? $"<p id=\"total-count\">No results found out of {_totalNoteCount} notes</p>"
             : $"<p id=\"total-count\">Showing {filteredNotes.Count} of {_totalNoteCount} notes</p>";
-        await SseHelper.SendServerSentEvent(Response, countsHtml);
+        await SseHelper.SendServerSentEventAsync(Response, countsHtml);
 
         var notesListHtml = "<div id=\"notes-list\" class=\"notes-list\">";
         if (filteredNotes.Count == 0)
@@ -169,13 +170,62 @@ public class HomeController : Controller
 
         notesListHtml += "</div>";
 
-        await SseHelper.SendServerSentEvent(Response, notesListHtml);
+        await SseHelper.SendServerSentEventAsync(Response, notesListHtml);
     }
 
     [Route("progress-bar")]
     public IActionResult ProgressBar()
     {
         return View();
+    }
+    
+    // [HttpGet("progress")]
+    // public async Task Progress()
+    // {
+    //     await SseHelper.SetSseHeadersAsync(Response);
+    //
+    //     // picocss progress bar with min / max values
+    //     var progressBarHtml = "<progress id=\"progress-bar\" value=\"0\" max=\"100\"></progress>";
+    //     for (var i = 0; i <= 100; i++)
+    //     {
+    //         progressBarHtml += $"<progress id=\"progress-bar\" value=\"{i}\" max=\"100\"></progress>";
+    //         await SseHelper.SendServerSentEventAsync(Response, progressBarHtml);
+    //         await Task.Delay(100);
+    //     }
+    //     
+    //     // picocss progress bar using intermediate flavor
+    //     while (true)
+    //     {
+    //         var progressBarIntermediateHtml = $"<progress id=\"pprogress-bar-intermediate\" />";
+    //         await SseHelper.SendServerSentEventAsync(Response, progressBarIntermediateHtml);
+    //         await Task.Delay(100);
+    //     }
+    // }
+    
+    [HttpGet("progress")]
+    public async Task Progress()
+    {
+        var type = Request.Query["type"];
+        await SseHelper.SetSseHeadersAsync(Response);
+        
+        if (type == "intermediatse")
+        {
+            while (true)
+            {
+                var progressBarIntermediateHtml = "<progress id=\"progress-bar-intermediate\" />";
+                await SseHelper.SendServerSentEventAsync(Response, progressBarIntermediateHtml);
+                await Task.Delay(100);
+            }
+        }
+
+        // Send a different progress bar HTML if type is not "intermediate"
+        var progressBarHtml = "<progress id=\"progress-bar\" value=\"0\" max=\"100\"></progress>";
+        for (var i = 0; i <= 100; i++)
+        {
+            progressBarHtml += $"<progress id=\"progress-bar\" value=\"{i}\" max=\"100\"></progress>";
+            await SseHelper.SendServerSentEventAsync(Response, progressBarHtml);
+            await Task.Delay(100);
+        }
     }
 
     [Route("value-select")]
