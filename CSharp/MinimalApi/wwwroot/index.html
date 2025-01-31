@@ -4,123 +4,117 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
-    <meta content="Real-time search demo using DataStar and ASP.NET Core, showcasing hypermedia-driven interactions with minimal JavaScript. A modern SPA alternative using server-sent events and HATEOAS principles."
-          name="description">
-    <meta content="datastar, real-time search, SPA alternative, hypermedia, HATEOAS, minimal JavaScript, HTMX alternative, server-sent events, progressive enhancement, ASP.NET Core"
-          name="keywords">
+    <meta
+        content="Real-time search demo using DataStar and ASP.NET Core, showcasing hypermedia-driven interactions with minimal JavaScript. A modern SPA alternative using server-sent events and HATEOAS principles."
+        name="description">
+    <meta
+        content="datastar, real-time search, SPA alternative, hypermedia, HATEOAS, minimal JavaScript, HTMX alternative, server-sent events, progressive enhancement, ASP.NET Core"
+        name="keywords">
     <title>Interactive Notes Search built with DataStar &amp; ASP.NET Minimal APIs</title>
     <link href="styles.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/starfederation/datastar@v1.0.0-beta.2/bundles/datastar.js"
-            type="module"></script>
+    <script src="datastar-v1.0.0-beta.2.js" type="module"></script>
     <link rel="shortcut icon" href="~/favicon.ico">
 </head>
 
 <body>
-<header>
-    <h1>Active Search built with ASP.NET Core (Minimal API)</h1>
-    <p class="intro">
-        Experience real-time search capabilities powered by DataStar!
-    </p>
-    <p style="margin-bottom: 1rem;">
-        <a href="https://data-star.dev/examples/active_search" target="_blank">
-            Original DataStar Version ( data-star.dev )
-        </a>
-    </p>
-    <p style="margin-bottom: 1rem;">
-        <a href="https://htmx.org/examples/active-search/" target="_blank">
-            Original HTMX Version ( htmx.org )
-        </a>
-    </p>
-</header>
+    <header>
+        <h1>Active Search built with ASP.NET Core (Minimal API)</h1>
+        <p class="intro">
+            Experience real-time search capabilities powered by DataStar!
+        </p>
+        <p style="margin-bottom: 1rem;">
+            <a href="https://data-star.dev/examples/active_search" target="_blank">
+                Original DataStar Version ( data-star.dev )
+            </a>
+        </p>
+        <p style="margin-bottom: 1rem;">
+            <a href="https://htmx.org/examples/active-search/" target="_blank">
+                Original HTMX Version ( htmx.org )
+            </a>
+        </p>
+    </header>
 
-<main id="main-content">
-    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <main id="main-content">
+        <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <section aria-label="Test examples" class="tutorial">
-        <ul class="tutorial-list">
-            <li>
-                <button aria-describedby="hello-desc" class="tutorial-btn" data-example="hello" id="hello-btn">
-                    Try "hello"
-                    <span class="tutorial-desc" id="hello-desc">3 results will appear</span>
-                </button>
-            </li>
-            <li>
-                <button class="tutorial-btn" data-example="e">
-                    Try 1 character "e"
-                    <span class="tutorial-desc">Minimum search is 3 characters</span>
-                </button>
-            </li>
-            <li>
-                <button class="tutorial-btn" data-example="xyz123">
-                    Try "xyz123"
-                    <span class="tutorial-desc">How it shows no matches</span>
-                </button>
-            </li>
-            <li>
-                <button class="tutorial-btn" data-example="">
-                    Clear Search
-                    <span class="tutorial-desc">Default view showing 5 results</span>
-                </button>
-            </li>
-        </ul>
-    </section>
+        <section aria-label="Test examples" class="tutorial">
+            <ul class="tutorial-list">
+                <li>
+                    <button aria-describedby="hello-desc" class="tutorial-btn" data-example="hello" id="hello-btn">
+                        Try "hello"
+                        <span class="tutorial-desc" id="hello-desc">3 results will appear</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="tutorial-btn" data-example="e">
+                        Try 1 character "e"
+                        <span class="tutorial-desc">Minimum search is 3 characters</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="tutorial-btn" data-example="xyz123">
+                        Try "xyz123"
+                        <span class="tutorial-desc">How it shows no matches</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="tutorial-btn" data-example="">
+                        Clear Search
+                        <span class="tutorial-desc">Default view showing 5 results</span>
+                    </button>
+                </li>
+            </ul>
+        </section>
 
-    <section aria-label="Search notes" class="search-section">
-        <div class="search-container">
-            <input
-                    aria-describedby="search-description"
-                    aria-label="Search through notes"
-                    autocomplete="off"
-                    class="search-input"
-                    data-bind-input
-                    data-on-input__debounce.1000ms="@put('/api/search')"
-                    id="search"
-                    placeholder="Search notes..."
-                    type="search"
-            >
-            <span aria-live="polite" class="error-message" id="error" role="alert"></span>
-        </div>
-        <div class="visually-hidden" id="search-description">
-            Type to search notes. Minimum 3 characters required.
-        </div>
-    </section>
+        <section aria-label="Search notes" class="search-section">
+            <div class="search-container">
+                <input aria-describedby="search-description" aria-label="Search through notes" autocomplete="off"
+                    class="search-input" data-bind-input data-on-input__debounce.1000ms="@put('/api/search')"
+                    id="search" placeholder="Search notes..." type="search">
+                <span aria-live="polite" class="error-message" id="error" role="alert"></span>
+            </div>
+            <div class="visually-hidden" id="search-description">
+                Type to search notes. Minimum 3 characters required.
+            </div>
+        </section>
 
-    <section aria-atomic="true" aria-live="polite">
-        <p id="stats" role="status">Loading stats...</p>
-        <div aria-label="Notes collection" data-on-load__delay.0s="@get('/api/notes')" id="notes-list"
-             role="region">
-            <p aria-label="Loading status" class="loading">Loading notes...</p>
-        </div>
-    </section>
-</main>
+        <section aria-atomic="true" aria-live="polite">
+            <p id="stats" role="status">Loading stats...</p>
+            <div aria-label="Notes collection" data-on-load__delay.0s="@get('/api/notes')" id="notes-list"
+                role="region">
+                <p aria-label="Loading status" class="loading">Loading notes...</p>
+            </div>
+        </section>
+    </main>
 
-<footer>
-    <p><small>Built with <a href="https://data-star.dev" target="_blank">DataStar</a> and <a
-            href="https://dotnet.microsoft.com/en-us/apps/aspnet" target="_blank">ASP.NET Core</a>, inspired by <a
-            href="https://en.wikipedia.org/wiki/HATEOAS" target="_blank">HATEOAS</a> and <a href="https://htmx.org"
-                                                                                            target="_blank">HTMX</a>.
-        Open source under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.</small></p>
-</footer>
+    <footer>
+        <p><small>Built with <a href="https://data-star.dev" target="_blank">DataStar</a> and <a
+                    href="https://dotnet.microsoft.com/en-us/apps/aspnet" target="_blank">ASP.NET Core</a>, inspired by
+                <a href="https://en.wikipedia.org/wiki/HATEOAS" target="_blank">HATEOAS</a> and <a
+                    href="https://htmx.org" target="_blank">HTMX</a>.
+                Open source under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT
+                    License</a>.</small></p>
+    </footer>
 
-<noscript>
-    <p class="error">This application requires JavaScript to function properly. Please enable JavaScript in your
-        browser.</p>
-</noscript>
+    <noscript>
+        <p class="error">This application requires JavaScript to function properly. Please enable JavaScript in your
+            browser.</p>
+    </noscript>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Tutorial button click handlers
-        document.querySelectorAll('.tutorial-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                const searchInput = document.getElementById('search');
-                const example = this.dataset.example;
-                searchInput.value = example;
-                searchInput.dispatchEvent(new Event('input', {bubbles: true}));
-                searchInput.focus();
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tutorial button click handlers
+            document.querySelectorAll('.tutorial-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const searchInput = document.getElementById('search');
+                    const example = this.dataset.example;
+                    searchInput.value = example;
+                    searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+                    searchInput.focus();
+                });
             });
         });
-    });
-</script>
+    </script>
 
 </body>
 
