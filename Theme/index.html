@@ -1,893 +1,255 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light dark">
-    <meta name="description" content="DataStar ASP.NET Core example projects showcasing various web development approaches and data visualizations">
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.classless.min.css"
-    />
-    <link 
-      rel="stylesheet" 
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-    <title>DataStar ASP.NET Core Examples</title>
-    <style>
-      :root {
-        --primary-color: #957B44;
-        --primary-hover: #b39552;
-        --text-color: #ffffff;
-        --background-color: #24344B;
-        --container-width: 800px;
-        --container-padding: 1rem;
-      }
-      
-      body {
-        background-color: var(--background-color);
-        color: var(--text-color);
-        line-height: 1.6;
-        margin: 0;
-      }
-      
-      /* Improve color contrast for accessibility */
-      a {
-        color: var(--primary-color);
-        text-decoration-thickness: 1px;
-        text-underline-offset: 2px;
-      }
-      a:hover {
-        color: var(--primary-hover);
-      }
-      
-      /* Existing styles with improvements... */
-      .header-container {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1rem;
-        background: rgba(0, 0, 0, 0.2);
-        padding: clamp(0.5rem, 2vw, 1rem);
-        border-radius: 8px;
-        flex-wrap: wrap;
-      }
-      
-      .header-logos {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-      }
-      
-      .header-logos img {
-        width: 40px;
-        height: 40px;
-        object-fit: cover;
-        border-radius: 50%;
-      }
-      
-      .header-logos img.profile {
-        border: 2px solid var(--primary-color);
-      }
-      
-      .header-container h1 {
-        font-size: clamp(1.5rem, 4vw, 2rem);
-        margin: 0;
-        flex: 1;
-      }
-      
-      /* Ensure proper focus states for accessibility */
-      a:focus-visible {
-        outline: 3px solid var(--primary-color);
-        outline-offset: 2px;
-      }
-      
-      /* Improve touch targets for mobile */
-      .nav-link, .cta-link, .demo-link {
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-      }
-      
-      /* Add proper spacing for mobile */
-      .status-list {
-        display: grid;
-        gap: 1rem;
-        padding: 0;
-        margin: 0;
-        list-style: none;
-      }
-      
-      /* Improve badge contrast */
-      .status-badge {
-        font-weight: 600;
-        padding: 0.25rem 0.75rem;
-      }
-      
-      /* Add proper focus states to interactive elements */
-      .demo-link:focus-visible {
-        outline: 3px solid var(--primary-color);
-        outline-offset: 2px;
-      }
-      
-      /* Ensure proper spacing on mobile */
-      @media (max-width: 768px) {
-        .container {
-          padding: 1rem;
-        }
-        
-        .demo-list {
-          grid-template-columns: 1fr;
-        }
-        
-        .status-item {
-          padding: 1rem;
-        }
-      }
-      
-      /* Improve readability of status notes */
-      .status-note {
-        font-size: 0.95rem;
-        line-height: 1.5;
-        color: rgba(255, 255, 255, 0.9);
-      }
-      
-      /* Add skip link for keyboard navigation */
-      .skip-link {
-        position: absolute;
-        top: -40px;
-        left: 0;
-        background: var(--primary-color);
-        color: white;
-        padding: 8px;
-        z-index: 100;
-      }
-      
-      .skip-link:focus {
-        top: 0;
-      }
-      
-      .demo-list {
-        display: grid;
-        gap: 1.5rem;
-        margin: 2rem 0;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      }
-      .demo-link {
-        background: rgba(0, 0, 0, 0.2);
-        padding: 1.5rem;
-        border-radius: 8px;
-        transition: transform 0.2s, background 0.2s;
-        text-decoration: none;
-        border: 1px solid transparent;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-      .demo-link:hover {
-        transform: translateY(-2px);
-        background: rgba(149, 123, 68, 0.2);
-        border-color: #957B44;
-        color: white;
-      }
-      .demo-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        border-bottom: 1px solid rgba(149, 123, 68, 0.2);
-        padding-bottom: 0.75rem;
-      }
-      .demo-icon {
-        font-size: 2rem;
-        color: #957B44;
-        width: 48px;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(149, 123, 68, 0.1);
-        border-radius: 8px;
-        flex-shrink: 0;
-      }
-      .demo-link h2 {
-        margin: 0;
-        font-size: 1.25rem;
-        color: #957B44;
-        border-bottom: none;
-        padding-bottom: 0;
-      }
-      .demo-link p {
-        margin: 0;
-        opacity: 0.8;
-        font-size: 0.9rem;
-        line-height: 1.5;
-      }
-      .intro-text {
-        background: rgba(0, 0, 0, 0.2);
-        padding: 1rem;
-        border-radius: 8px;
-        margin: 1rem 0;
-      }
-      .featured-demo {
-        background: rgba(0, 0, 0, 0.2);
-        padding: 1.5rem;
-        border-radius: 8px;
-        margin: 1rem 0;
-        border: 1px solid rgba(149, 123, 68, 0.3);
-      }
-      .featured-demo h2 {
-        color: #957B44;
-        margin: 0 0 0.5rem 0;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-      .featured-demo h2 span {
-        background: rgba(149, 123, 68, 0.2);
-        padding: 0.25rem 0.75rem;
-        border-radius: 4px;
-        font-size: 0.9rem;
-        color: #957B44;
-      }
-      .featured-demo p {
-        margin: 0.5rem 0;
-        opacity: 0.8;
-      }
-      .featured-demo .demo-preview {
-        background: rgba(0, 0, 0, 0.2);
-        padding: 1.5rem;
-        border-radius: 4px;
-        margin: 1rem 0;
-        text-align: center;
-      }
-      .featured-demo .cta-link {
-        display: inline-block;
-        background: #957B44;
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        text-decoration: none;
-        transition: background 0.2s;
-      }
-      .featured-demo .cta-link:hover {
-        background: #b39552;
-      }
-      .project-status {
-        background: rgba(0, 0, 0, 0.2);
-        padding: 1.25rem;
-        border-radius: 8px;
-        margin: 1rem 0;
-        border: 1px solid rgba(149, 123, 68, 0.3);
-      }
-      .project-status h2 {
-        color: #957B44;
-        margin: 0 0 1rem 0;
-      }
-      .status-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 0.75rem;
-        padding: 0.75rem;
-        background: rgba(0, 0, 0, 0.15);
-        border-radius: 6px;
-      }
-      .status-working {
-        background: rgba(39, 174, 96, 0.2);
-        color: #27AE60;
-      }
-      .status-not-working {
-        background: rgba(231, 76, 60, 0.2);
-        color: #E74C3C;
-      }
-      .status-pending {
-        background: rgba(241, 196, 15, 0.2);
-        color: #F1C40F;
-      }
 
-      /* Container width control */
-      .container {
-        width: 100%;
-        max-width: var(--container-width);
-        margin: 0 auto;
-        padding: var(--container-padding);
-        box-sizing: border-box;
-      }
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="DataStar ASP.NET Core Examples - A lightweight hypermedia framework for building reactive web applications">
+  <meta name="color-scheme" content="light dark" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script type="module" src="js/datastar.js"></script>
+  <title>ASP.NET Core Examples with DataStar - The Hypermedia Framework</title>
+</head>
 
-      /* Adjust spacing for project status */
-      .project-status {
-        background: rgba(0, 0, 0, 0.2);
-        padding: 1.25rem;
-        border-radius: 8px;
-        margin: 1rem 0;
-        border: 1px solid rgba(149, 123, 68, 0.3);
-      }
-
-      .status-list {
-        display: grid;
-        gap: 1rem;
-        padding: 0;
-        margin: 0.5rem 0 0 0;
-        list-style: none;
-      }
-
-      .status-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 0.75rem;
-        padding: 0.75rem;
-        background: rgba(0, 0, 0, 0.15);
-        border-radius: 6px;
-      }
-
-      .status-badge {
-        flex-shrink: 0;
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        border-radius: 4px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        min-width: 100px;
-        text-align: center;
-      }
-
-      .status-content {
-        flex: 1;
-      }
-
-      .status-content a {
-        font-weight: 500;
-        text-decoration: none;
-      }
-
-      .status-content a:hover {
-        text-decoration: underline;
-      }
-
-      .status-type {
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 0.9rem;
-      }
-
-      .status-note {
-        font-size: 0.85rem;
-        line-height: 1.4;
-        color: rgba(255, 255, 255, 0.8);
-        margin-top: 0.5rem;
-        padding-top: 0.5rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      /* Adjust featured demo spacing */
-      .featured-demo {
-        padding: 1.25rem;
-        margin: 1rem 0;
-      }
-
-      .featured-demo .demo-preview {
-        padding: 1.25rem;
-        margin: 0.75rem 0;
-      }
-
-      /* Responsive adjustments */
-      @media (min-width: 768px) {
-        .container {
-          padding: 2rem;
-        }
-        
-        .demo-list {
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-      }
-
-      @media (max-width: 767px) {
-        .container {
-          padding: 1rem;
-        }
-        
-        .demo-list {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .header-logos a {
-        display: flex;
-        align-items: center;
-        transition: transform 0.2s;
-      }
-      
-      .header-logos a:hover {
-        transform: scale(1.1);
-      }
-      
-      /* Remove text decoration from image links */
-      .header-logos a:hover {
-        text-decoration: none;
-      }
-
-      /* Adjust grid for larger cards */
-      .demo-list {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      }
-
-      .intro-section {
-        background: rgba(0, 0, 0, 0.2);
-        padding: 1.5rem;
-        border-radius: 8px;
-        margin: 1rem 0;
-        border: 1px solid rgba(149, 123, 68, 0.3);
-      }
-
-      .intro-section h2 {
-        color: #957B44;
-        margin: 0 0 1rem 0;
-        font-size: 1.5rem;
-      }
-
-      .intro-section p {
-        margin: 0 0 1rem 0;
-        line-height: 1.6;
-      }
-
-      .intro-section ul {
-        margin: 0;
-        padding-left: 1.5rem;
-      }
-
-      .intro-section li {
-        margin: 0.5rem 0;
-        line-height: 1.6;
-      }
-
-      .intro-section li:last-child {
-        margin-bottom: 0;
-      }
-
-      .benefits-section {
-        background: rgba(0, 0, 0, 0.2);
-        padding: 1.5rem;
-        border-radius: 8px;
-        margin: 1rem 0;
-        border: 1px solid rgba(149, 123, 68, 0.3);
-      }
-
-      .benefits-section h2 {
-        color: #957B44;
-        margin: 0 0 1.5rem 0;
-        font-size: 1.5rem;
-      }
-
-      .benefits-list {
-        display: grid;
-        gap: 1.25rem;
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
-      }
-
-      .benefit-item {
-        display: flex;
-        gap: 1rem;
-        align-items: flex-start;
-      }
-
-      .benefit-icon {
-        flex-shrink: 0;
-        width: 32px;
-        height: 32px;
-        background: rgba(149, 123, 68, 0.1);
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #957B44;
-      }
-
-      .benefit-content {
-        flex: 1;
-      }
-
-      .benefit-title {
-        font-weight: 600;
-        color: #957B44;
-        margin: 0 0 0.25rem 0;
-      }
-
-      .benefit-description {
-        margin: 0;
-        line-height: 1.5;
-        opacity: 0.9;
-      }
-
-      .why-use-section {
-        background: rgba(0, 0, 0, 0.2);
-        padding: 1.5rem;
-        border-radius: 8px;
-        margin: 2rem 0;
-        border: 1px solid rgba(149, 123, 68, 0.3);
-      }
-
-      .why-use-section h2 {
-        color: #957B44;
-        margin: 0 0 1.5rem 0;
-        font-size: 1.5rem;
-      }
-
-      .features-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.25rem;
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
-      }
-
-      .feature-item {
-        background: rgba(0, 0, 0, 0.15);
-        padding: 1.25rem;
-        border-radius: 6px;
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-
-      .feature-title {
-        font-weight: 600;
-        color: #957B44;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-      }
-
-      .feature-icon {
-        font-size: 1.25rem;
-        width: 32px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(149, 123, 68, 0.1);
-        border-radius: 6px;
-        flex-shrink: 0;
-      }
-
-      .feature-description {
-        margin: 0;
-        line-height: 1.5;
-        opacity: 0.9;
-        font-size: 0.95rem;
-      }
-
-      /* Common section styles */
-      .section-container {
-        background: rgba(0, 0, 0, 0.2);
-        padding: 1.25rem;
-        border-radius: 8px;
-        margin: 1rem 0;
-        border: 1px solid rgba(149, 123, 68, 0.3);
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      /* Grid layouts */
-      .features-list,
-      .benefits-list,
-      .demo-list {
-        display: grid;
-        gap: 1.25rem;
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
-      }
-
-      /* Responsive adjustments */
-      @media (max-width: 768px) {
-        :root {
-          --container-padding: 1rem;
-        }
-
-        .features-list,
-        .benefits-list,
-        .demo-list {
-          grid-template-columns: 1fr;
-        }
-
-        .header-container {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .benefit-item,
-        .feature-item {
-          padding: 1rem;
-        }
-      }
-
-      @media (min-width: 769px) {
-        :root {
-          --container-padding: 2rem;
-        }
-      }
-
-      .featured-demo .button-group {
-        display: flex;
-        gap: 1rem;
-        margin-top: 1rem;
-      }
-
-      .featured-demo .secondary-link {
-        display: inline-block;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        text-decoration: none;
-        transition: all 0.2s;
-        background: rgba(149, 123, 68, 0.1);
-        color: var(--primary-color);
-        border: 1px solid var(--primary-color);
-      }
-
-      .featured-demo .secondary-link:hover {
-        background: rgba(149, 123, 68, 0.2);
-        color: var(--primary-hover);
-      }
-    </style>
-  </head>
-  <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    <main id="main-content" class="container">
-      <div class="header-container" role="banner">
-        <div class="header-logos">
-          <a href="https://github.com/RickTheHat/DataStarExamples" aria-label="View DataStar Examples on GitHub">
-            <img src="rocket.webp" alt="DataStar logo" width="40" height="40">
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="header-top">
+        <div class="header-images">
+          <a href="https://data-star.dev" target="_blank" aria-label="Visit DataStar website">
+            <img src="img/rocket.webp" alt="DataStar logo">
           </a>
-          <a href="https://github.com/RickTheHat/DataStarExamples" aria-label="Visit Rick's GitHub profile">
-            <img src="rick.jpg" alt="Author profile" width="40" height="40" class="profile">
+          <a href="https://github.com/RickTheHat/DataStarExamples" target="_blank"
+            aria-label="Visit Rick's GitHub profile">
+            <img src="img/rick.jpg" alt="Author profile" class="profile">
           </a>
         </div>
-        <h1>DataStar ASP.NET Core Examples</h1>
+        <h1>ASP.NET Core Examples with DataStar</h1>
       </div>
+      <p>The hypermedia framework • Scale up from simple to real-time web apps</p>
+      <a href="#examples" class="button">GO TO EXAMPLES</a>
+    </header>
+    <!-- ./ Header -->
 
-      <div class="intro-section" role="region" aria-labelledby="what-is-datastar">
-        <h2 id="what-is-datastar">What is DataStar?</h2>
-        <p>DataStar is a lightweight hypermedia framework that brings reactive functionality to server-rendered applications. It combines the best of both worlds:</p>
+    <!-- Main -->
+    <main id="main-content">
+      <section id="what-is-datastar">
+        <h2>
+          What is DataStar?
+        </h2>
+        <p>DataStar is a lightweight hypermedia framework that brings reactive functionality to server-rendered
+          applications. It combines the best of both worlds:</p>
         <ul>
           <li>The simplicity and reliability of server-side rendering</li>
-          <li>The dynamic, reactive user experience in the style of a Single Page Application (SPA) but without the need for JavaScript</li>
-        </ul>
-      </div>
-
-      <div class="featured-demo" role="region" aria-labelledby="featured-demo-title">
-        <h2 id="featured-demo-title">Featured Demo <span aria-label="New">New</span></h2>
-        <p>Check out our latest real-time data visualization demo showcasing live updates and interactive charts.</p>
-        <div class="demo-preview">
-          [Real-time Chart Preview]
-        </div>
-        <div class="button-group">
-          <a href="demo3.html" class="cta-link">Try the Demo →</a>
-          <a href="#demo-examples" class="secondary-link">More Demos ↓</a>
-        </div>
-      </div>
-      
-      <div class="project-status" role="region" aria-labelledby="project-status-title">
-        <h2 id="project-status-title">Project Status</h2>
-        <ul class="status-list">
-          <li class="status-item">
-            <span class="status-badge status-working">Working</span>
-            <div class="status-content">
-              <a href="https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-9.0">ASP.NET Core Web App</a>
-              <span class="status-type">(Model-View-Controller)</span>
-            </div>
-          </li>
-          
-          <li class="status-item">
-            <span class="status-badge status-not-working">Not Working</span>
-            <div class="status-content">
-              <a href="https://learn.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-9.0&tabs=visual-studio">ASP.NET Core Web App</a>
-              <span class="status-type">(Razor Pages)</span>
-              <div class="status-note">
-                Getting a 400 Bad Request error when passing in http://localhost:5019/Index?handler=Search
-              </div>
-            </div>
-          </li>
-          
-          <li class="status-item">
-            <span class="status-badge status-working">Working</span>
-            <div class="status-content">
-              <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview?view=aspnetcore-9.0">ASP.NET Core Web App</a>
-              <span class="status-type">(Minimal APIs)</span>
-            </div>
-          </li>
-          
-          <li class="status-item">
-            <span class="status-badge status-pending">Not Setup</span>
-            <div class="status-content">
-              <a href="https://fast-endpoints.com/docs/server-sent-events">FastEndpoints</a>
-              <span class="status-type">project</span>
-            </div>
+          <li>The dynamic, reactive user experience in the style of a Single Page Application (SPA) but without the
+            need for JavaScript
           </li>
         </ul>
-      </div>
-
-      <div class="benefits-section" role="region" aria-labelledby="benefits-title">
-        <h2 id="benefits-title">Benefits</h2>
-        <ul class="benefits-list">
-          <li class="benefit-item">
-            <div class="benefit-icon">
-              <i class="fas fa-code" aria-hidden="true"></i>
-            </div>
-            <div class="benefit-content">
-              <div class="benefit-title">Build Like a Pro, Code Like a Beginner</div>
-              <p class="benefit-description">Create sophisticated, reactive web applications without wrestling with complex state management or JavaScript frameworks</p>
-            </div>
-          </li>
-
-          <li class="benefit-item">
-            <div class="benefit-icon">
-              <i class="fas fa-bolt" aria-hidden="true"></i>
-            </div>
-            <div class="benefit-content">
-              <div class="benefit-title">Real-Time Magic</div>
-              <p class="benefit-description">Update multiple parts of your page instantly - imagine a chat application where messages, user lists, and notifications all update in real-time without writing a single line of JavaScript</p>
-            </div>
-          </li>
-
-          <li class="benefit-item">
-            <div class="benefit-icon">
-              <i class="fas fa-server" aria-hidden="true"></i>
-            </div>
-            <div class="benefit-content">
-              <div class="benefit-title">Your Server, Your Rules</div>
-              <p class="benefit-description">Keep all your business logic where it belongs - on the server. No more duplicating validation rules or business logic in JavaScript</p>
-            </div>
-          </li>
-
-          <li class="benefit-item">
-            <div class="benefit-icon">
-              <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-            </div>
-            <div class="benefit-content">
-              <div class="benefit-title">Learn Once, Build Anything</div>
-              <p class="benefit-description">If you can build a traditional web page, you can build reactive applications. No need to learn Redux, React, or complex state management patterns</p>
-            </div>
-          </li>
-
-          <li class="benefit-item">
-            <div class="benefit-icon">
-              <i class="fas fa-clock" aria-hidden="true"></i>
-            </div>
-            <div class="benefit-content">
-              <div class="benefit-title">Instant Feedback</div>
-              <p class="benefit-description">Create responsive interfaces that feel like native apps - type in a search box and watch results filter instantly, all without complex client-side code</p>
-            </div>
-          </li>
-
-          <li class="benefit-item">
-            <div class="benefit-icon">
-              <i class="fas fa-rocket" aria-hidden="true"></i>
-            </div>
-            <div class="benefit-content">
-              <div class="benefit-title">Focus on Features, Not Plumbing</div>
-              <p class="benefit-description">Spend your time building features users love instead of managing state, writing JavaScript, or debugging client-server communication</p>
-            </div>
-          </li>
-
-          <li class="benefit-item">
-            <div class="benefit-icon">
-              <i class="fas fa-sync-alt" aria-hidden="true"></i>
-            </div>
-            <div class="benefit-content">
-              <div class="benefit-title">Say Goodbye to Full Page Refreshes</div>
-              <p class="benefit-description">The dreaded full page refresh is a thing of the past with DataStar - enjoy smooth, partial updates that keep your users in flow</p>
-            </div>
-          </li>
+      </section>
+      <section id="project-status">
+        <h2>
+          Project Status
+        </h2>
+        <p>These ASP.NET Core Examples with DataStar are currently in development. The project is open source and
+          contributions are welcome.</p>
+        <ul>
+          <li><span style="color:green">working</span>&nbsp;ASP.NET Core Web App (Model-View-Controller)</li>
+          <li><span style="color:red">not working</span>&nbsp;ASP.NET Core Web App (Razor Pages)</li>
+          <li><span style="color:green">working</span>&nbsp;ASP.NET Core Minimal API</li>
+          <li><span style="color:yellow">not setup yet</span>&nbsp;FastEndpoints is a developer friendly alternative to
+            Minimal APIs & MVC</li>
         </ul>
-      </div>
+      </section>
+      <section id="benefits">
+        <h2>DataStar Benefits</h2>
+        <h3>Say Goodbye to Full Page Refreshes</h3>
+        <p>The dreaded full page refresh is a thing of the past with DataStar - enjoy smooth, partial updates that keep
+          your users in flow</p>
 
-      <div class="why-use-section" role="region" aria-labelledby="why-use-title">
-        <h2 id="why-use-title">Why Use DataStar?</h2>
-        <ul class="features-list">
-          <li class="feature-item">
-            <div class="feature-title">
-              <div class="feature-icon">
-                <i class="fas fa-feather-alt" aria-hidden="true"></i>
-              </div>
-              Minimal JavaScript
-            </div>
-            <p class="feature-description">
-              Just include a single 12.9 KiB file - smaller than Alpine.js and Htmx combined
-            </p>
-          </li>
+        <h3>Build Like a Pro, Code Like a Beginner</h3>
+        <p>Create sophisticated, reactive web applications without wrestling with complex state management or JavaScript
+          frameworks</p>
 
-          <li class="feature-item">
-            <div class="feature-title">
-              <div class="feature-icon">
-                <i class="fas fa-link" aria-hidden="true"></i>
-              </div>
-              HATEOAS Compliant
-            </div>
-            <p class="feature-description">
-              The only JavaScript you need is the library itself - no additional client-side code required
-            </p>
-          </li>
+        <h3>Your Server, Your Rules</h3>
+        <p>Keep all your business logic where it belongs - on the server. No more duplicating validation rules or
+          business logic in JavaScript</p>
 
-          <li class="feature-item">
-            <div class="feature-title">
-              <div class="feature-icon">
-                <i class="fas fa-code-branch" aria-hidden="true"></i>
-              </div>
-              Server Technology Agnostic
-            </div>
-            <p class="feature-description">
-              Write your backend in any language
-            </p>
-          </li>
+        <h3>Instant Feedback</h3>
+        <p>Create responsive interfaces that feel like native apps - type in a search box and watch results filter
+          instantly, all without complex client-side code</p>
 
-          <li class="feature-item">
-            <div class="feature-title">
-              <div class="feature-icon">
-                <i class="fas fa-bolt" aria-hidden="true"></i>
-              </div>
-              Real-time Updates
-            </div>
-            <p class="feature-description">
-              Utilizes server-sent events for fast, responsive experiences
-            </p>
-          </li>
+        <h3>Learn Once, Build Anything</h3>
+        <p>If you can build a traditional web page, you can build reactive applications. No need to learn Redux, React,
+          or complex state management patterns</p>
+
+        <h3>Focus on Features, Not Plumbing • Spend your time building features use</h3>
+        <p>Spend your time building features users love instead of managing state, writing JavaScript, or debugging
+          client-server communication</p>
+
+        <h3>Real-Time Magic</h3>
+        <p>Update multiple parts of your page instantly - imagine a chat application where messages, user lists, and
+          notifications all update in real-time without writing a single line of JavaScript</p>
+      </section>
+      <section id="why-use-datastar">
+        <h2>
+          Why use DataStar?
+        </h2>
+        <ul>
+          <li>Minimal JavaScript • Just include a single 12.9 KiB file - smaller than Alpine.js and HTMX combined</li>
+          <li>HATEOAS Compliant • The only JavaScript you need is the library itself - no additional client-side code
+            required</li>
+          <li>Server Technology Agnostic • Write your backend in any language</li>
+          <li>Real-time Updates • Utilizes server-sent events for fast, responsive experiences</li>
         </ul>
-      </div>
+      </section>
+      <section id="examples">
+        <h2>DataStar Examples</h2>
+        <p>PORTED HTMX EXAMPLES</p>
 
-      <nav id="demo-examples" class="demo-list" aria-label="Demo examples">
-        <a href="demo1.html" class="demo-link">
-          <div class="demo-header">
-            <div class="demo-icon">
-              <i class="fas fa-chart-bar" aria-hidden="true"></i>
-            </div>
-            <h2>Basic Charts</h2>
-          </div>
-          <p>
-            Create simple yet effective data visualizations using chart.js. Perfect for displaying statistical data, trends, and basic data relationships. Includes examples of bar charts, line graphs, and pie charts with interactive tooltips.
-          </p>
-        </a>
-        
-        <a href="demo2.html" class="demo-link">
-          <div class="demo-header">
-            <div class="demo-icon">
-              <i class="fas fa-chart-network" aria-hidden="true"></i>
-            </div>
-            <h2>Advanced Visualizations</h2>
-          </div>
-          <p>
-            Explore complex data representations using D3.js. Features interactive elements, animations, and advanced filtering capabilities for deeper data analysis and exploration.
-          </p>
-        </a>
-        
-        <a href="demo3.html" class="demo-link">
-          <div class="demo-header">
-            <div class="demo-icon">
-              <i class="fas fa-stream" aria-hidden="true"></i>
-            </div>
-            <h2>Real-time Data</h2>
-          </div>
-          <p>
-            Experience live data updates and streaming visualizations using SignalR. Watch as charts update in real-time, reflecting changes in your data instantly.
-          </p>
-        </a>
-        
-        <a href="demo4.html" class="demo-link">
-          <div class="demo-header">
-            <div class="demo-icon">
-              <i class="fas fa-table" aria-hidden="true"></i>
-            </div>
-            <h2>Data Tables</h2>
-          </div>
-          <p>
-            Implement powerful data tables with sorting, filtering, and pagination capabilities. Built with performance in mind for handling large datasets efficiently.
-          </p>
-        </a>
-      </nav>
+        <h3>
+          <span class="status-icon complete" title="Example Complete">✓</span>
+          ACTIVE SEARCH
+        </h3>
+        <p>This example actively searches a notes database as the user enters text</p>
+        <a href="active-search.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          ANIMATIONS
+        </h3>
+        <p>Use CSS transitions to add smooth animations and transitions to your web page</p>
+        <a href="animations.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          BULK UPDATE
+        </h3>
+        <p>This example shows how to implement a common pattern where rows are selected and then bulk updated.</p>
+        <a href="bulk-update.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          CLICK TO EDIT
+        </h3>
+        <p>The click to edit pattern provides a way to offer inline editing of all or part of a record without a page
+          refresh</p>
+        <a href="click-to-edit.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          CLICK TO LOAD
+        </h3>
+        <p>This example shows how to implement click-to-load the next page in a table of data</p>
+        <a href="click-to-load.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          DELETE ROW
+        </h3>
+        <p>This example shows how to implement a delete button that removes a table row upon completion</p>
+        <a href="delete-row.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          DIALOGS BROWSER
+        </h3>
+        <p>Dialogs can be triggered with the standard browser prompt and confirm within an expression</p>
+        <a href="dialogs-browser.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          EDIT ROW
+        </h3>
+        <p>This example shows how to implement editable rows</p>
+        <a href="click-to-load.html">→ View Example</a>&nbsp;<a href="https://data-star.dev/examples/edit_row"
+          target="_blank">→ View DataStar Example</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          FILE UPLOAD
+        </h3>
+        <p>In this example we show how to create a file upload form that will be submitted via fetch</p>
+        <a href="file-upload.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon pending" title="In Progress">✓</span>
+          INDICATOR
+        </h3>
+        <p>Show a loading indicator</p>
+        <a href="indicator.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          INFINITE SCROLL
+        </h3>
+        <p>The infinite scroll pattern provides a way to load content dynamically on user scrolling action</p>
+        <a href="infinite-scroll.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          INLINE VALIDATION
+        </h3>
+        <p>This example shows how to do inline field validation</p>
+        <a href="inline-validation.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          LAZY LOAD
+        </h3>
+        <p>The data-indicator attribute accepts the name of a signal whose value is set to true when a fetch request
+          initiated from the same element is in progress, otherwise false. If the signal does not exist in the signals,
+          it will be added.</p>
+        <a href="lazy-load.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          LAZY TABS
+        </h3>
+        <p>Shows how easy it is to implement tabs using Datastar</p>
+        <a href="lazy-tabs.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon complete" title="Example Complete">✓</span>
+          PROGRESS BAR
+        </h3>
+        <p>This example shows how to implement an updating progress graphic</p>
+        <a href="progress-bar.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          SORTABLE
+        </h3>
+        <p>In the original example you had to hook into HTMX's events. With DataStar, you can easily listen for custom
+          events using data-on-*, and update signals to effect change</p>
+        <a href="sortable.html">View Example →</a>
+
+        <h3>
+          <span class="status-icon todo" title="Not Started">○</span>
+          VALUE SELECT
+        </h3>
+        <p>In this example we show how to make the values in one select depend on the value selected in another select.
+        </p>
+        <a href="value-select.html">View Example →</a>
+      </section>
     </main>
-  </body>
+    <!-- ./ Main -->
+
+    <!-- Footer -->
+    <footer>
+      <small>
+        <p>
+          Built with • <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT license</a> • <a
+            href="https://data-star.dev" target="_blank">DataStar</a> • <a
+            href="https://dotnet.microsoft.com/en-us/apps/aspnet" target="_blank">ASP.NET
+            Core</a>
+        </p>
+      </small>
+    </footer>
+    <!-- ./ Footer -->
+  </div>
+</body>
+
 </html>

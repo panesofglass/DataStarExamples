@@ -1,37 +1,26 @@
-<div class="demo-section">
-    <h1>
-        <a href="/" style="text-decoration: none; color: inherit;">
-            Active Search (ASP.NET MVC)
-        </a>
-    </h1>
-    <p style="margin-bottom: 1rem;">
-        <a href="    https://htmx.org/examples/active-search/" target="_blank"
-           style="color: #C9A75F; text-decoration: none;">
-            → htmx.org version
-        </a>
-        <br>
-        <a href="https://data-star.dev/examples/active_search" target="_blank"
-           style="color: #C9A75F; text-decoration: none;">
-            → data-star.dev version
-        </a>
-        <br>
-        <a href="https://github.com/RickTheHat/DataStarExamples" target="_blank"
-           style="color: #C9A75F; text-decoration: none;">→ more project types at
-            github.com/rickthehat/datastarexamples </a>
-    </p>
-    <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <span></span> <!-- Empty span for spacing since this is the first page -->
-        <a href="/animations" class="demo-nav-link">
-            NEXT: ANIMATIONS →
-        </a>
-    </div>
+@{
+    ViewData["Title"] = "Active Search (ASP.NET MVC)";
+}
+
+<div style="display: flex; justify-content: space-between; gap: 1rem;">
+    <span></span> <!-- Empty span for spacing since this is the last page -->
+    <a asp-controller="Home" asp-action="Animations" class="demo-nav-link">
+        NEXT: ANIMATIONS →
+    </a>
+</div>
+
+<!-- example section -->
+<section id="example">
+    <h2>Active Search (ASP.NET MVC)</h2>
+    <p>This example actively searches a notes database as the user enters text</p>
+    <!-- Example content here -->
     <p id="total-count">
         Showing @ViewData["CurrentCount"] of @ViewData["TotalCount"] notes
     </p>
-    <div class="demo-content">
+    <div class="example-content">
         <div class="search-container">
             <input type="text" placeholder="Search..." class="search-input" data-bind-input
-                   data-on-input__debounce.1000ms="@@put('/search')"/>
+                   data-on-input__debounce.1000ms="@@put('Home/Search')"/>
         </div>
         <div id="notes-list" class="notes-list">
             @foreach (var note in Model)
@@ -42,10 +31,20 @@
             }
         </div>
     </div>
-    <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <span></span>
-        <a href="/animations" class="demo-nav-link">
-            NEXT: ANIMATIONS →
-        </a>
-    </div>
+</section>
+
+<!-- code samples for the example with proper code formatting for c# -->
+<section id="code">
+    <h2>Code</h2>
+    <p>TBD</p>
+    <!-- Code samples here -->
+</section>
+
+<div style="display: flex; justify-content: space-between; gap: 1rem;">
+    <span></span> <!-- Empty span for spacing since this is the last page -->
+    <a asp-controller="Home" asp-action="Animations" class="demo-nav-link">
+        NEXT: ANIMATIONS →
+    </a>
 </div>
+
+@await Html.PartialAsync("_MoreExamples")

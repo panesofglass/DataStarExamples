@@ -1,24 +1,35 @@
+@{
+    ViewData["Title"] = "Lazy Load (ASP.NET MVC)";
+}
+
 <div class="demo-section">
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/edit-row" class="demo-nav-link">
-            ← PREVIOUS: EDIT ROW
+        <a asp-controller="Home" asp-action="InlineValidation" class="demo-nav-link">
+            ← PREVIOUS: INLINE VALIDATION
         </a>
-        <a href="/loading-indicator" class="demo-nav-link">
-            NEXT: LOADING INDICATOR →
+        <a asp-controller="Home" asp-action="LazyTabs" class="demo-nav-link">
+            NEXT: LAZY TABS →
         </a>
     </div>
 
-    <h2>Lazy Load (ASP.NET MVC)</h2>
-    <div class="demo-content">
+    <section id="example">
+        <h2>Lazy Load (ASP.NET MVC)</h2>
         <p>Lazy loading demonstration will go here...</p>
-    </div>
+        <div class="demo-content" role="region" aria-label="Demo visualization">
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 4px; text-align: center;">
+                demo goes here
+            </div>
+        </div>
+    </section>
 
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/edit-row" class="demo-nav-link">
-            ← PREVIOUS: EDIT ROW
+        <a asp-controller="Home" asp-action="InlineValidation" class="demo-nav-link">
+            ← PREVIOUS: INLINE VALIDATION
         </a>
-        <a href="/loading-indicator" class="demo-nav-link">
-            NEXT: LOADING INDICATOR →
+        <a asp-controller="Home" asp-action="LazyTabs" class="demo-nav-link">
+            NEXT: LAZY TABS →
         </a>
     </div>
-</div> 
+</div>
+
+@await Html.PartialAsync("_MoreExamples")

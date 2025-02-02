@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="DataStar ASP.NET Core Examples - Progress Bar Example">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/datastar.js"></script>
+    <title>Progress Bar - DataStar Examples</title>
+    <style>
+        .button-container {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            flex: 1;
+            margin: 0 5px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:disabled {
+            background-color: #ccc;
+            color: #666;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-top">
+                <div class="header-images">
+                    <a href="https://data-star.dev" target="_blank" aria-label="Visit DataStar website">
+                        <img src="img/rocket.webp" alt="DataStar logo">
+                    </a>
+                    <a href="https://github.com/RickTheHat/DataStarExamples" target="_blank"
+                        aria-label="Visit Rick's GitHub profile">
+                        <img src="img/rick.jpg" alt="Author profile" class="profile">
+                    </a>
+                </div>
+                <h1>Progress Bar Example</h1>
+            </div>
+            <p>The hypermedia framework • Scale up from simple to real-time web apps</p>
+            <a href="/index.html#examples" class="button">BACK TO EXAMPLES</a>
+        </header>
+
+        <!-- Main -->
+        <main id="main-content">
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+                <a href="/active-search" class="demo-nav-link">
+                    ← PREVIOUS: LAZY TABS
+                </a>
+                <a href="/value-select" class="demo-nav-link">
+                    NEXT: SORTABLE →
+                </a>
+            </div>
+            <!-- <a href="https://htmx.org/examples/progress-bar/" target="_blank"
+                style="color: #C9A75F; text-decoration: none;">
+                → htmx.org Progress Bar version
+            </a>
+            <br>
+            <a href="https://data-star.dev/examples/progress_bar" target="_blank"
+                style="color: #C9A75F; text-decoration: none;">
+                → data-star.dev Progress Bar version
+            </a> -->
+            <!-- example section -->
+            <section id="example">
+                <h2>Progress Bar Example</h2>
+                <p>This example shows how to implement an updating progress graphic</p>
+                <div style="position: relative; width: 100%;">
+                    <progress id="progressBar" value="0" max="100" style="width: 100%;"></progress>
+                    <span id="progressPercentage" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-weight: bold;">0%</span>
+                </div>
+                <div class="button-container">
+                    <button onclick="startProgress()">Start</button>
+                    <button onclick="incrementProgress()">Increment</button>
+                    <button onclick="resetProgress()">Reset</button>
+                </div>
+            </section>
+
+            <!-- Add this new section inside the <main> tag, below the existing example section -->
+            <section id="continuous-example">
+                <h2>Continuous Progress Bar Example</h2>
+                <p>This example shows a progress bar that runs continuously.</p>
+                <div style="position: relative; width: 100%;">
+                    <progress id="continuousProgressBar" value="0" max="100" style="width: 100%;"></progress>
+                    <span id="continuousPercentage" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-weight: bold;">0%</span>
+                </div>
+            </section>
+
+            <!-- code samples for the example with proper code formatting for c# -->
+            <section id="code">
+                <h2>Code</h2>
+                <p>TBD</p>
+                <!-- Code samples here -->
+            </section>
+
+            <div style="display: flex; justify-content: space-between; gap: 1rem;">
+                <a href="/active-search" class="demo-nav-link">
+                    ← PREVIOUS: LAZY TABS
+                </a>
+                <a href="/value-select" class="demo-nav-link">
+                    NEXT: SORTABLE →
+                </a>
+            </div>
+
+            <!-- example navigation section -->
+            <section id="example-navigation">
+                <h2>More Examples</h2>
+                <p>Explore other DataStar examples and see what's possible with hypermedia-driven applications.</p>
+                <h3>Ported HTMX Examples</h3>
+                <ul class="example-nav">
+                    <li><a href="active-search.html"><span class="status-icon complete" title="Example Complete">✓</span> Active Search</a></li>
+                    <li><a href="animations.html"><span class="status-icon todo" title="Not Started">✗</span> Animations</a></li>
+                    <li><a href="bulk-update.html"><span class="status-icon todo" title="Not Started">✗</span> Bulk Update</a></li>
+                    <li><a href="click-to-edit.html"><span class="status-icon todo" title="Not Started">✗</span> Click to Edit</a></li>
+                    <li><a href="click-to-load.html"><span class="status-icon todo" title="Not Started">✗</span> Click to Load</a></li>
+                    <li><a href="delete-row.html"><span class="status-icon todo" title="Not Started">✗</span> Delete Row</a></li>
+                    <li><a href="dialogs-browser.html"><span class="status-icon todo" title="Not Started">✗</span> Dialogs Browser</a></li>
+                    <li><a href="edit-row.html"><span class="status-icon todo" title="Not Started">✗</span> Edit Row</a></li>
+                    <li><a href="file-upload.html"><span class="status-icon todo" title="Not Started">✗</span> File Upload</a></li>
+                    <li><a href="indicator.html"><span class="status-icon pending" title="In Progress">✓</span> Indicator</a></li>
+                    <li><a href="infinite-scroll.html"><span class="status-icon todo" title="Not Started">✗</span> Infinite Scroll</a></li>
+                    <li><a href="inline-validation.html"><span class="status-icon todo" title="Not Started">✗</span> Inline Validation</a></li>
+                    <li><a href="lazy-load.html"><span class="status-icon todo" title="Not Started">✗</span> Lazy Load</a></li>
+                    <li><a href="lazy-tabs.html"><span class="status-icon todo" title="Not Started">✗</span> Lazy Tabs</a></li>
+                    <li><a href="progress-bar.html" class="current"><span class="status-icon complete" title="Example Complete">✓</span> Progress Bar</a></li>
+                    <li><a href="sortable.html"><span class="status-icon todo" title="Not Started">✗</span> Sortable</a></li>
+                    <li><a href="value-select.html"><span class="status-icon todo" title="Not Started">✗</span> Value Select</a></li>
+                </ul>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <small>
+                <p>
+                    Built with • <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT license</a> •
+                    <a href="https://data-star.dev" target="_blank">DataStar</a> • <a
+                        href="https://dotnet.microsoft.com/en-us/apps/aspnet" target="_blank">ASP.NET Core</a>
+                </p>
+            </small>
+        </footer>
+    </div>
+
+    <script>
+        // Add a variable to track the current interval
+        let progressInterval;
+
+        function updatePercentage(progressBar, percentageElement) {
+            const percentage = Math.round((progressBar.value / progressBar.max) * 100);
+            percentageElement.textContent = percentage + '%'; // Update the percentage text
+        }
+
+        function incrementProgress() {
+            const progressBar = document.getElementById('progressBar');
+            const incrementButton = document.querySelector('button[onclick="incrementProgress()"]');
+            const resetButton = document.querySelector('button[onclick="resetProgress()"]');
+            const startButton = document.querySelector('button[onclick="startProgress()"]');
+            
+            // Disable only start button
+            startButton.disabled = true;
+
+            let currentValue = parseInt(progressBar.value);
+            if (currentValue < 100) {
+                currentValue += 10; // Increment by 10 for demonstration
+                progressBar.value = currentValue;
+                updatePercentage(progressBar, document.getElementById('progressPercentage')); // Update percentage
+                
+                // When reaching 100%, disable start and increment
+                if (currentValue >= 100) {
+                    incrementButton.disabled = true;
+                    startButton.disabled = true;
+                }
+            }
+        }
+
+        function resetProgress() {
+            const progressBar = document.getElementById('progressBar');
+            const incrementButton = document.querySelector('button[onclick="incrementProgress()"]');
+            const resetButton = document.querySelector('button[onclick="resetProgress()"]');
+            const startButton = document.querySelector('button[onclick="startProgress()"]');
+            
+            // Clear any running interval
+            if (progressInterval) {
+                clearInterval(progressInterval);
+                progressInterval = null;
+            }
+            
+            // Reset the progress bar to 0
+            progressBar.value = 0;
+            updatePercentage(progressBar, document.getElementById('progressPercentage'));
+            
+            // Enable all buttons
+            incrementButton.disabled = false;
+            resetButton.disabled = false;
+            startButton.disabled = false;
+        }
+
+        function startProgress() {
+            const progressBar = document.getElementById('progressBar');
+            const incrementButton = document.querySelector('button[onclick="incrementProgress()"]');
+            const startButton = document.querySelector('button[onclick="startProgress()"]');
+            
+            // Only disable increment button
+            incrementButton.disabled = true;
+
+            progressBar.value = 0; // Reset to 0 before starting
+            let currentValue = 0;
+
+            // Store the interval reference
+            progressInterval = setInterval(() => {
+                if (currentValue < 100) {
+                    currentValue += 10; // Increment by 10
+                    progressBar.value = currentValue;
+                    updatePercentage(progressBar, document.getElementById('progressPercentage'));
+                } else {
+                    clearInterval(progressInterval); // Stop the interval when reaching 100
+                    progressInterval = null;
+                    // When reaching 100%, disable both start and increment buttons
+                    incrementButton.disabled = true;
+                    startButton.disabled = true;
+                }
+            }, 1000); // Update every second
+        }
+
+        // Function to animate the continuous progress bar
+        function animateContinuousProgress() {
+            const continuousProgressBar = document.getElementById('continuousProgressBar');
+            const continuousPercentage = document.getElementById('continuousPercentage');
+            let currentValue = 0;
+
+            setInterval(() => {
+                currentValue = (currentValue + 10) % 110; // Loop from 0 to 100
+                continuousProgressBar.value = currentValue > 100 ? 100 : currentValue;
+                updatePercentage(continuousProgressBar, continuousPercentage); // Update percentage
+            }, 1000); // Update every second
+        }
+
+        // Start the animation on page load
+        window.onload = animateContinuousProgress;
+    </script>
+</body>
+
+</html>

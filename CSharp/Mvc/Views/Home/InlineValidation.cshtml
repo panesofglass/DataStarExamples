@@ -1,24 +1,35 @@
+@{
+    ViewData["Title"] = "Inline Validation (ASP.NET MVC)";
+}
+
 <div class="demo-section">
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/loading-indicator" class="demo-nav-link">
-            ← PREVIOUS: LOADING INDICATOR
+        <a asp-controller="Home" asp-action="InfiniteScroll" class="demo-nav-link">
+            ← PREVIOUS: INFINITE SCROLL
         </a>
-        <a href="/infinite-scroll" class="demo-nav-link">
-            NEXT: INFINITE SCROLL →
+        <a asp-controller="Home" asp-action="LazyLoad" class="demo-nav-link">
+            NEXT: LAZY LOAD →
         </a>
     </div>
 
-    <h2>Inline Validation (ASP.NET MVC)</h2>
-    <div class="demo-content">
+    <section id="example">
+        <h2>Inline Validation (ASP.NET MVC)</h2>
         <p>Inline validation demonstration will go here...</p>
-    </div>
+        <div class="demo-content" role="region" aria-label="Demo visualization">
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 4px; text-align: center;">
+                demo goes here
+            </div>
+        </div>
+    </section>
 
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/loading-indicator" class="demo-nav-link">
-            ← PREVIOUS: LOADING INDICATOR
+        <a asp-controller="Home" asp-action="InfiniteScroll" class="demo-nav-link">
+            ← PREVIOUS: INFINITE SCROLL
         </a>
-        <a href="/infinite-scroll" class="demo-nav-link">
-            NEXT: INFINITE SCROLL →
+        <a asp-controller="Home" asp-action="LazyLoad" class="demo-nav-link">
+            NEXT: LAZY LOAD →
         </a>
     </div>
-</div> 
+</div>
+
+@await Html.PartialAsync("_MoreExamples")

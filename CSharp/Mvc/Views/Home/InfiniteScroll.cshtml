@@ -1,24 +1,35 @@
+@{
+    ViewData["Title"] = "Infinite Scroll (ASP.NET MVC)";
+}
+
 <div class="demo-section">
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/inline-validation" class="demo-nav-link">
-            ← PREVIOUS: INLINE VALIDATION
+        <a asp-controller="Home" asp-action="Indicator" class="demo-nav-link">
+            ← PREVIOUS: INDICATOR
         </a>
-        <a href="/active-search" class="demo-nav-link">
-            NEXT: ACTIVE SEARCH →
+        <a asp-controller="Home" asp-action="InlineValidation" class="demo-nav-link">
+            NEXT: INLINE VALIDATION →
         </a>
     </div>
 
-    <h2>Infinite Scroll (ASP.NET MVC)</h2>
-    <div class="demo-content">
+    <section id="example">
+        <h2>Infinite Scroll (ASP.NET MVC)</h2>
         <p>Infinite scroll demonstration will go here...</p>
-    </div>
+        <div class="demo-content" role="region" aria-label="Demo visualization">
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 4px; text-align: center;">
+                demo goes here
+            </div>
+        </div>
+    </section>
 
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/inline-validation" class="demo-nav-link">
-            ← PREVIOUS: INLINE VALIDATION
+        <a asp-controller="Home" asp-action="Indicator" class="demo-nav-link">
+            ← PREVIOUS: INDICATOR
         </a>
-        <a href="/active-search" class="demo-nav-link">
-            NEXT: ACTIVE SEARCH →
+        <a asp-controller="Home" asp-action="InlineValidation" class="demo-nav-link">
+            NEXT: INLINE VALIDATION →
         </a>
     </div>
-</div> 
+</div>
+
+@await Html.PartialAsync("_MoreExamples")

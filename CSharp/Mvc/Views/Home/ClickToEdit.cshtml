@@ -1,20 +1,35 @@
+@{
+    ViewData["Title"] = "Click To Edit (ASP.NET MVC)";
+}
+
 <div class="demo-section">
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <span></span> <!-- Empty span for spacing since this is the first page -->
-        <a href="/bulk-update" class="demo-nav-link">
-            NEXT: BULK UPDATE →
+        <a asp-controller="Home" asp-action="BulkUpdate" class="demo-nav-link">
+            ← PREVIOUS: BULK UPDATE
+        </a>
+        <a asp-controller="Home" asp-action="ClickToLoad" class="demo-nav-link">
+            NEXT: CLICK TO LOAD →
         </a>
     </div>
 
-    <h2>Click To Edit (ASP.NET MVC)</h2>
-    <div class="demo-content">
+    <section id="example">
+        <h2>Click To Edit (ASP.NET MVC)</h2>
         <p>Click to edit demonstration will go here...</p>
-    </div>
+        <div class="demo-content" role="region" aria-label="Demo visualization">
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 4px; text-align: center;">
+                demo goes here
+            </div>
+        </div>
+    </section>
 
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <span></span>
-        <a href="/bulk-update" class="demo-nav-link">
-            NEXT: BULK UPDATE →
+        <a asp-controller="Home" asp-action="BulkUpdate" class="demo-nav-link">
+            ← PREVIOUS: BULK UPDATE
+        </a>
+        <a asp-controller="Home" asp-action="ClickToLoad" class="demo-nav-link">
+            NEXT: CLICK TO LOAD →
         </a>
     </div>
 </div> 
+
+@await Html.PartialAsync("_MoreExamples")

@@ -1,14 +1,18 @@
+@{
+    ViewData["Title"] = "Bulk Update (ASP.NET MVC)";
+}
+
 <div class="demo-section">
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/click-to-edit" class="demo-nav-link">
-            ← PREVIOUS: CLICK TO EDIT
+        <a asp-controller="Home" asp-action="Animations" class="demo-nav-link">
+            ← PREVIOUS: ANIMATIONS
         </a>
-        <a href="/click-to-load" class="demo-nav-link">
-            NEXT: CLICK TO LOAD →
+        <a asp-controller="Home" asp-action="ClickToEdit" class="demo-nav-link">
+            NEXT: CLICK TO EDIT →
         </a>
     </div>
 
-    <article>
+    <section id="example">
         <h2>Bulk Update (ASP.NET MVC)</h2>
         <p>Bulk update demonstration will go here...</p>
 
@@ -17,14 +21,16 @@
                 demo goes here
             </div>
         </div>
-    </article>
+    </section>
 
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/click-to-edit" class="demo-nav-link">
-            ← PREVIOUS: CLICK TO EDIT
+        <a asp-controller="Home" asp-action="Animations" class="demo-nav-link">
+            ← PREVIOUS: ANIMATIONS
         </a>
-        <a href="/click-to-load" class="demo-nav-link">
-            NEXT: CLICK TO LOAD →
+        <a asp-controller="Home" asp-action="ClickToEdit" class="demo-nav-link">
+            NEXT: CLICK TO EDIT →
         </a>
     </div>
 </div> 
+
+@await Html.PartialAsync("_MoreExamples")
