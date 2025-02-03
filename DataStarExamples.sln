@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPI", "CSharp\Minima
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPages", "CSharp\RazorPages\RazorPages.csproj", "{8A49F342-A30C-4527-B5AA-1772C55BE199}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FSharpLibrary", "FSharpLibrary", "{FB9E796E-FC0B-452E-8244-2481C26FCB6A}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MinimalApi", "FSharpLibrary\MinimalApi\MinimalApi.fsproj", "{26389AC9-9D02-45A5-8C31-E6966AF2A4D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,12 @@ Global
 		{8A49F342-A30C-4527-B5AA-1772C55BE199}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A49F342-A30C-4527-B5AA-1772C55BE199}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A49F342-A30C-4527-B5AA-1772C55BE199}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26389AC9-9D02-45A5-8C31-E6966AF2A4D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26389AC9-9D02-45A5-8C31-E6966AF2A4D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26389AC9-9D02-45A5-8C31-E6966AF2A4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26389AC9-9D02-45A5-8C31-E6966AF2A4D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{26389AC9-9D02-45A5-8C31-E6966AF2A4D7} = {FB9E796E-FC0B-452E-8244-2481C26FCB6A}
 	EndGlobalSection
 EndGlobal
