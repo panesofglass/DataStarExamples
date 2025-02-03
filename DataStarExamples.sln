@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FSharpLibrary", "FSharpLibr
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MinimalApi", "FSharpLibrary\MinimalApi\MinimalApi.fsproj", "{26389AC9-9D02-45A5-8C31-E6966AF2A4D7}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Mvc", "FSharpLibrary\Mvc\Mvc.fsproj", "{A47753E5-9FCE-4F74-A041-2E53A2DE2A55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,8 +40,13 @@ Global
 		{26389AC9-9D02-45A5-8C31-E6966AF2A4D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26389AC9-9D02-45A5-8C31-E6966AF2A4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26389AC9-9D02-45A5-8C31-E6966AF2A4D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A47753E5-9FCE-4F74-A041-2E53A2DE2A55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A47753E5-9FCE-4F74-A041-2E53A2DE2A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A47753E5-9FCE-4F74-A041-2E53A2DE2A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A47753E5-9FCE-4F74-A041-2E53A2DE2A55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26389AC9-9D02-45A5-8C31-E6966AF2A4D7} = {FB9E796E-FC0B-452E-8244-2481C26FCB6A}
+		{A47753E5-9FCE-4F74-A041-2E53A2DE2A55} = {FB9E796E-FC0B-452E-8244-2481C26FCB6A}
 	EndGlobalSection
 EndGlobal

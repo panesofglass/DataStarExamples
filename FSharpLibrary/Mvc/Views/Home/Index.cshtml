@@ -1,0 +1,441 @@
+<div class="intro-section" role="region" aria-labelledby="what-is-datastar">
+    <h2 id="what-is-datastar">What is DataStar?</h2>
+    <p>DataStar is a lightweight hypermedia framework that brings reactive functionality to server-rendered
+        applications. It combines the best of both worlds:</p>
+    <ul>
+        <li>The simplicity and reliability of server-side rendering</li>
+        <li>The dynamic, reactive user experience in the style of a Single Page Application (SPA) but without the
+            need for JavaScript
+        </li>
+    </ul>
+</div>
+
+<div class="featured-demo" role="region" aria-labelledby="featured-demo-title">
+    <h2 id="featured-demo-title">Active Search Demo <span aria-label="New">New</span></h2>
+    <p>Real-Time filtering a notes database as you type</p>
+    <p style="margin-bottom: 1rem;">
+        <a href="    https://htmx.org/examples/active-search/" target="_blank"
+           style="color: #C9A75F; text-decoration: none;">
+            → htmx.org version
+        </a>
+        <br>
+        <a href="https://data-star.dev/examples/active_search" target="_blank"
+           style="color: #C9A75F; text-decoration: none;">
+            → data-star.dev version
+        </a>
+        <br>
+        <a href="https://github.com/RickTheHat/DataStarExamples" target="_blank"
+           style="color: #C9A75F; text-decoration: none;">→ more project types at
+            github.com/rickthehat/datastarexamples </a>
+    </p>
+    <p id="total-count">
+        Showing @ViewData["CurrentCount"] of @ViewData["TotalCount"] notes
+    </p>
+    <div class="demo-preview">
+        <div class="search-container">
+            <input type="text" placeholder="Search..." class="search-input" data-bind-input
+                   data-on-input__debounce.1000ms="@@put('/search')"/>
+        </div>
+        <div id="notes-list" class="notes-list">
+            @foreach (var note in Model)
+            {
+                <div class="note-item">
+                    <p>@note.Content</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<a href="#demo-examples" class="demo-button">
+    Go To The Demos
+</a>
+
+@* <div class="button-group">
+    <a href="#demo-examples" class="secondary-link">More Demos ↓</a>
+</div> *@
+
+<div class="project-status" role="region" aria-labelledby="project-status-title">
+    <h2 id="project-status-title">Project Status</h2>
+    <ul class="status-list">
+        <li class="status-item">
+            <span class="status-badge status-working">Working</span>
+            <div class="status-content">
+                <a href="https://github.com/RickTheHat/DataStarExamples/tree/main/CSharp/Mvc" target="_blank">ASP.NET
+                    Core Web App</a>
+                <span class="status-type">(Model-View-Controller)</span>
+            </div>
+        </li>
+
+        <li class="status-item">
+            <span class="status-badge status-not-working">Not Working</span>
+            <div class="status-content">
+                <a href="https://github.com/RickTheHat/DataStarExamples/tree/main/CSharp/RazorPages" target="_blank">ASP.NET
+                    Core Web App</a>
+                <span class="status-type">(Razor Pages)</span>
+                <div class="status-note">
+                    Getting a 400 Bad Request error when passing in http://localhost:5019/Index?handler=Search
+                </div>
+            </div>
+        </li>
+
+        <li class="status-item">
+            <span class="status-badge status-working">Working</span>
+            <div class="status-content">
+                <a href="https://github.com/RickTheHat/DataStarExamples/tree/main/CSharp/MinimalApi" target="_blank">ASP.NET
+                    Core Web App</a>
+                <span class="status-type">(Minimal APIs)</span>
+            </div>
+        </li>
+
+        <li class="status-item">
+            <span class="status-badge status-pending">Not Setup</span>
+            <div class="status-content">
+                <a href="https://github.com/RickTheHat/DataStarExamples/tree/main/CSharp/FastEndpoints" target="_blank">FastEndpoints</a>
+                <span class="status-type">project</span>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="benefits-section" role="region" aria-labelledby="benefits-title">
+    <h2 id="benefits-title">Benefits</h2>
+    <ul class="benefits-list">
+        <li class="benefit-item">
+            <div class="benefit-icon">
+                <i class="fas fa-code" aria-hidden="true"></i>
+            </div>
+            <div class="benefit-content">
+                <div class="benefit-title">Build Like a Pro, Code Like a Beginner</div>
+                <p class="benefit-description">Create sophisticated, reactive web applications without wrestling
+                    with complex state management or JavaScript frameworks</p>
+            </div>
+        </li>
+
+        <li class="benefit-item">
+            <div class="benefit-icon">
+                <i class="fas fa-bolt" aria-hidden="true"></i>
+            </div>
+            <div class="benefit-content">
+                <div class="benefit-title">Real-Time Magic</div>
+                <p class="benefit-description">Update multiple parts of your page instantly - imagine a chat
+                    application where messages, user lists, and notifications all update in real-time without
+                    writing a single line of JavaScript</p>
+            </div>
+        </li>
+
+        <li class="benefit-item">
+            <div class="benefit-icon">
+                <i class="fas fa-server" aria-hidden="true"></i>
+            </div>
+            <div class="benefit-content">
+                <div class="benefit-title">Your Server, Your Rules</div>
+                <p class="benefit-description">Keep all your business logic where it belongs - on the server. No
+                    more duplicating validation rules or business logic in JavaScript</p>
+            </div>
+        </li>
+
+        <li class="benefit-item">
+            <div class="benefit-icon">
+                <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+            </div>
+            <div class="benefit-content">
+                <div class="benefit-title">Learn Once, Build Anything</div>
+                <p class="benefit-description">If you can build a traditional web page, you can build reactive
+                    applications. No need to learn Redux, React, or complex state management patterns</p>
+            </div>
+        </li>
+
+        <li class="benefit-item">
+            <div class="benefit-icon">
+                <i class="fas fa-clock" aria-hidden="true"></i>
+            </div>
+            <div class="benefit-content">
+                <div class="benefit-title">Instant Feedback</div>
+                <p class="benefit-description">Create responsive interfaces that feel like native apps - type in a
+                    search box and watch results filter instantly, all without complex client-side code</p>
+            </div>
+        </li>
+
+        <li class="benefit-item">
+            <div class="benefit-icon">
+                <i class="fas fa-rocket" aria-hidden="true"></i>
+            </div>
+            <div class="benefit-content">
+                <div class="benefit-title">Focus on Features, Not Plumbing</div>
+                <p class="benefit-description">Spend your time building features users love instead of managing
+                    state, writing JavaScript, or debugging client-server communication</p>
+            </div>
+        </li>
+
+        <li class="benefit-item">
+            <div class="benefit-icon">
+                <i class="fas fa-sync-alt" aria-hidden="true"></i>
+            </div>
+            <div class="benefit-content">
+                <div class="benefit-title">Say Goodbye to Full Page Refreshes</div>
+                <p class="benefit-description">The dreaded full page refresh is a thing of the past with DataStar -
+                    enjoy smooth, partial updates that keep your users in flow</p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="why-use-section" role="region" aria-labelledby="why-use-title">
+    <h2 id="why-use-title">Why Use DataStar?</h2>
+    <ul class="features-list">
+        <li class="feature-item">
+            <div class="feature-title">
+                <div class="feature-icon">
+                    <i class="fas fa-feather-alt" aria-hidden="true"></i>
+                </div>
+                Minimal JavaScript
+            </div>
+            <p class="feature-description">
+                Just include a single 12.9 KiB file - smaller than Alpine.js and Htmx combined
+            </p>
+        </li>
+
+        <li class="feature-item">
+            <div class="feature-title">
+                <div class="feature-icon">
+                    <i class="fas fa-link" aria-hidden="true"></i>
+                </div>
+                HATEOAS Compliant
+            </div>
+            <p class="feature-description">
+                The only JavaScript you need is the library itself - no additional client-side code required
+            </p>
+        </li>
+
+        <li class="feature-item">
+            <div class="feature-title">
+                <div class="feature-icon">
+                    <i class="fas fa-code-branch" aria-hidden="true"></i>
+                </div>
+                Server Technology Agnostic
+            </div>
+            <p class="feature-description">
+                Write your backend in any language
+            </p>
+        </li>
+
+        <li class="feature-item">
+            <div class="feature-title">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt" aria-hidden="true"></i>
+                </div>
+                Real-time Updates
+            </div>
+            <p class="feature-description">
+                Utilizes server-sent events for fast, responsive experiences
+            </p>
+        </li>
+    </ul>
+</div>
+
+<nav id="demo-examples" class="demo-list" aria-label="Demo examples">
+    <a href="/active-search" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Active Search</h2>
+        </div>
+        <p>
+            Active search enhances user experience by providing real-time results as you type, making searches faster and more intuitive
+        </p>
+    </a>
+
+    <a href="/animations" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Animations</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/bulk-update" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Bulk Update</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/click-to-edit" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Click To Edit</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/click-to-load" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Click To Load</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/delete-row" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Delete Row</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/dialogs-browser" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Dialogs Browser</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/edit-row" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Edit Row</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/file-upload" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>File Upload</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/indicator" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Indicator</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/infinite-scroll" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Infinite Scroll</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/inline-validation" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Inline Validation</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/lazy-load" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Lazy Load</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/lazy-tabs" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Lazy Tabs</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/progress-bar" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Progress Bar</h2>
+        </div>
+        <p>
+            Progress bars provide real-time feedback to users, one tracks progress between a set min/max value, showing clear completion stages, while the other runs indefinitely
+        </p>
+    </a>
+
+    <a href="/sortable" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Sortable</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+
+    <a href="/value-select" class="demo-link">
+        <div class="demo-header">
+            <div class="demo-icon">
+                <i class="fa-regular fa-circle-check" aria-hidden="true"></i>
+            </div>
+            <h2>Value Select</h2>
+        </div>
+        <p>
+            TODO: contribute to this project by adding this example
+        </p>
+    </a>
+</nav>
