@@ -4,7 +4,7 @@ namespace MinimalAPI.Helpers;
 
 public static class SseHelper
 {
-    public static async Task SetSseHeaders(HttpResponse response)
+    public static async Task SetSseHeadersAsync(HttpResponse response)
     {
         response.Headers.Append("Cache-Control", "no-cache");
         response.Headers.Append("Content-Type", "text/event-stream");
@@ -12,7 +12,7 @@ public static class SseHelper
         await response.Body.FlushAsync();
     }
 
-    public static async Task SendServerSentEvent(
+    public static async Task SendServerSentEventAsync(
         HttpResponse response
         , string fragment
         , string selector = null
