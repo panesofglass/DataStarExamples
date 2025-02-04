@@ -14,7 +14,7 @@ We're seeking contributors who:
 - Can help create clear documentation and examples
 
 ## Project Goals
-1. Create a comprehensive example application using [DataStar](https://github.com/starfederation/datastar) and ASP.NET Core MVC
+1. Create a comprehensive example application using [Datastar](https://github.com/starfederation/datastar) and ASP.NET Core MVC
 2. Demonstrate best practices and common patterns
 3. Provide clear documentation for newcomers
 4. Show integration with common tools and libraries
@@ -27,7 +27,7 @@ This project is currently in the planning phase. If you're interested in contrib
 4. Indicate what aspects you'd like to work on
 
 ## Contact
-Please open an issue to discuss your interest, here is the [DataStar Contribution Guidelines](https://github.com/starfederation/datastar/blob/develop/CONTRIBUTING.md) or to ask any questions about the project.
+Please open an issue to discuss your interest, here is the [Datastar Contribution Guidelines](https://github.com/starfederation/datastar/blob/develop/CONTRIBUTING.md) or to ask any questions about the project.
 
 ---
 Let's build something amazing together! 💪

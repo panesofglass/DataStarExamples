@@ -1,7 +1,7 @@
-# DataStar Examples
-### built using [DataStar](https://data-star.dev/) and [ASP.NET Core Web Apps](https://dotnet.microsoft.com/en-us/apps/aspnet)
+# Datastar Examples
+### built using [Datastar](https://data-star.dev/) and [ASP.NET Core Web Apps](https://dotnet.microsoft.com/en-us/apps/aspnet)
 
-This repository contains three implementations of active search functionality using DataStar:
+This repository contains three implementations of active search functionality using Datastar:
 
 1. *working* > An [ASP.NET Core Web App](https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-9.0) (Model-View-Controller)
 2. ****not*** working* > An [ASP.NET Core Web App](https://learn.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-9.0&tabs=visual-studio) (Razor Pages)
@@ -12,9 +12,9 @@ This repository contains three implementations of active search functionality us
 ## Demo > Active Search
 ![Active Search Demo](mvc-datastar-examples.png)  
 
-## What is DataStar?
+## What is Datastar?
 
-DataStar is a lightweight hypermedia framework that brings reactive functionality to server-rendered applications. It combines the best of both worlds:
+Datastar is a lightweight hypermedia framework that brings reactive functionality to server-rendered applications. It combines the best of both worlds:
 
 - The simplicity and reliability of server-side rendering
 - The dynamic, reactive user experience in the style of a Single Page Application (SPA) but without the need for JavaScript
@@ -27,9 +27,9 @@ DataStar is a lightweight hypermedia framework that brings reactive functionalit
 - **Learn Once, Build Anything**: If you can build a traditional web page, you can build reactive applications. No need to learn Redux, React, or complex state management patterns
 - **Instant Feedback**: Create responsive interfaces that feel like native apps - type in a search box and watch results filter instantly, all without complex client-side code
 - **Focus on Features, Not Plumbing**: Spend your time building features users love instead of managing state, writing JavaScript, or debugging client-server communication
-- **Say Goodbye to Full Page Refreshes**: The dreaded full page refresh is a thing of the past with DataStar - enjoy smooth, partial updates that keep your users in flow
+- **Say Goodbye to Full Page Refreshes**: The dreaded full page refresh is a thing of the past with Datastar - enjoy smooth, partial updates that keep your users in flow
 
-## Why Use DataStar?
+## Why Use Datastar?
 
 - **Minimal JavaScript**: Just include a single 12.9 KiB file - smaller than Alpine.js and Htmx combined
 - **HATEOAS Compliant**: The only JavaScript you need is the library itself - no additional client-side code required
@@ -38,24 +38,24 @@ DataStar is a lightweight hypermedia framework that brings reactive functionalit
 
 ## About This Example
 
-This repository demonstrates DataStar's capabilities through an active search implementation. Users can type search queries and see results update in real-time, with all the heavy lifting handled server-side. Both the MVC and Razor Pages implementations achieve the same functionality using their respective architectural patterns.
+This repository demonstrates Datastar's capabilities through an active search implementation. Users can type search queries and see results update in real-time, with all the heavy lifting handled server-side. Both the MVC and Razor Pages implementations achieve the same functionality using their respective architectural patterns.
 
 ## Getting Started
 
 Both implementations demonstrate how to:
-- Set up DataStar in an [ASP.NET Core Web App](https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-9.0)
+- Set up Datastar in an [ASP.NET Core Web App](https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-9.0)
 - Implement real-time search functionality
 - Handle server-sent events
 - Structure your application for reactive behavior
 
-For more details and documentation, visit the [DataStar Active Search Example](https://data-star.dev/examples/active_search)
+For more details and documentation, visit the [Datastar Active Search Example](https://data-star.dev/examples/active_search)
 
 ## Community
 
 Join our growing community of developers:
 
 - **Discord**: Join our [Discord server](https://discord.gg/bnRNgZjgPh) to:
-  - Get help with your DataStar projects
+  - Get help with your Datastar projects
   - Share your experiences and learn from others
   - Stay updated on the latest features and best practices
   - Connect with fellow developers
