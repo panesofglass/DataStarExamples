@@ -1,27 +1,57 @@
 @page
 @model RazorPages.Pages.ProgressBar
 
+@{
+    ViewData["Title"] = "Progress Bar (ASP.NET Razor Pages)";
+}
+
 <div class="demo-section">
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/ActiveSearch" class="demo-nav-link">
-            ← PREVIOUS: ACTIVE SEARCH
+        <a asp-page="./LazyTabs" class="demo-nav-link">
+            ← PREVIOUS: LAZY TABS
         </a>
-        <a href="/ValueSelect" class="demo-nav-link">
-            NEXT: VALUE SELECT →
+        <a asp-page="./Sortable" class="demo-nav-link">
+            NEXT: SORTABLE →
         </a>
     </div>
 
-    <h2>Progress Bar (ASP.NET Razor Pages)</h2>
-    <div class="demo-content">
-        <p>Progress bar demonstration will go here...</p>
-    </div>
+    <!-- example section -->
+    <section id="example">
+        <h2>Progress Bar (ASP.NET Razor Pages)</h2>
+        <p>This example shows how to implement an updating progress bar with min/max values</p>
+        <div style="position: relative; width: 100%;">
+            <progress id="progressBar" value="0" max="100" style="width: 100%;"></progress>
+            <span id="progressBarPercentage"
+                style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-weight: bold;">0%</span>
+        </div>
+        <div class="button-container" data-signals="{shouldDisable:false}">
+            <button id="startButton"
+                data-on-click="$shouldDisable=true; @@get('/ProgressBar/Progress&actionType=start',{openWhenHidden:true})"
+                data-attr-disabled="$shouldDisable">
+                Start
+            </button>
+            @* TODO - Add the following buttons and properly disable them *@
+            @* <button id="continuousButton" data-on-click="@@get('Home/Progress?actionType=repeat',{openWhenHidden:true})">Repeating</button> *@
+            @* <button id="incrementButton" data-on-click="@@get('Home/Progress?actionType=increment',{openWhenHidden:true})">Increment</button> *@
+            @* <button id="resetButton" data-on-click="@@get('Home/Progress?actionType=reset',{openWhenHidden:true})">Reset</button> *@
+        </div>
+    </section>
+
+    <!-- code samples for the example with proper code formatting for c# -->
+    <section id="code">
+        <h2>Code</h2>
+        <p>TBD</p>
+        <!-- Code samples here -->
+    </section>
 
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/ActiveSearch" class="demo-nav-link">
-            ← PREVIOUS: ACTIVE SEARCH
+        <a asp-page="./LazyTabs" class="demo-nav-link">
+            ← PREVIOUS: LAZY TABS
         </a>
-        <a href="/ValueSelect" class="demo-nav-link">
-            NEXT: VALUE SELECT →
+        <a asp-page="./Sortable" class="demo-nav-link">
+            NEXT: SORTABLE →
         </a>
     </div>
-</div> 
+</div>
+
+@await Html.PartialAsync("_MoreExamples")

@@ -24,6 +24,18 @@ public class ActiveSearch : PageModel
                 .RuleFor(t => t.Content, f => f.Lorem.Sentence());
 
             _notes = todoFaker.Generate(count);
+            
+            // Add exactly 3 notes with "hello"
+            for (var i = 0; i < 3; i++)
+            {
+                var randomIndex = _random.Next(_notes.Count);
+                _notes[randomIndex] = new Note
+                {
+                    Id = _notes[randomIndex].Id,
+                    Content = $"hello! {new Faker().Lorem.Sentence()}"
+                };
+            }
+            
             _totalNoteCount = _notes.Count;
         }
 
@@ -32,9 +44,9 @@ public class ActiveSearch : PageModel
         ViewData["CurrentCount"] = Notes.Count;
     }
 
-    public async Task OnPutSearchAsync()
+    public async Task OnGetSearchAsync()
     {
-        await SseHelper.SetSseHeaders(Response);
+        await SseHelper.SetSseHeadersAsync(Response);
 
         using var reader = new StreamReader(Request.Body);
         var body = await reader.ReadToEndAsync();
@@ -48,28 +60,28 @@ public class ActiveSearch : PageModel
         var countsHtml = filteredNotes.Count == 0
             ? $"<p id=\"total-count\">No results found for \"{query}\" out of {_totalNoteCount} notes</p>"
             : $"<p id=\"total-count\">Showing {filteredNotes.Count} of {_totalNoteCount} notes</p>";
-        await SseHelper.SendServerSentEvent(Response, countsHtml);
+        await SseHelper.SendServerSentEventAsync(Response, countsHtml);
 
         // Send the notes list
         var notesListHtml = "<div id=\"notes-list\">";
         if (filteredNotes.Count == 0)
         {
-            notesListHtml += "<span class=\"note-item\">";
+            notesListHtml += "<div class=\"note-item\">";
             notesListHtml += $"<p>No notes found matching \"{query}\"</p>";
-            notesListHtml += "</span>";
+            notesListHtml += "</div>";
         }
         else
         {
             foreach (var note in filteredNotes)
             {
-                notesListHtml += "<span class=\"note-item\">";
+                notesListHtml += "<div class=\"note-item\">";
                 notesListHtml += $"<p>{note.Content}</p>";
-                notesListHtml += "</span>";
+                notesListHtml += "</div>";
             }
         }
 
         notesListHtml += "</div>";
 
-        await SseHelper.SendServerSentEvent(Response, notesListHtml);
+        await SseHelper.SendServerSentEventAsync(Response, notesListHtml);
     }
 }

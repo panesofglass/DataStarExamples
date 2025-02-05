@@ -1,24 +1,34 @@
+@page
+@model RazorPages.Pages.ValueSelect
+
+@{
+    ViewData["Title"] = "Value Select (ASP.NET Razor Pages)";
+}
+
 <div class="demo-section">
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/ProgressBar" class="demo-nav-link">
-            ← PREVIOUS: PROGRESS BAR
+        <a asp-page="./Sortable" class="demo-nav-link">
+            ← PREVIOUS: SORTABLE
         </a>
-        <a href="/Animations" class="demo-nav-link">
-            NEXT: ANIMATIONS →
-        </a>
+        <span></span> <!-- Empty span for spacing since this is the last page -->
     </div>
 
-    <h2>Value Select (ASP.NET Razor Pages)</h2>
-    <div class="demo-content">
+    <section id="example">
+        <h2>Value Select (ASP.NET Razor Pages)</h2>
         <p>Value select demonstration will go here...</p>
-    </div>
+        <div class="demo-content" role="region" aria-label="Demo visualization">
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 4px; text-align: center;">
+                demo goes here
+            </div>
+        </div>
+    </section>
 
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/ProgressBar" class="demo-nav-link">
-            ← PREVIOUS: PROGRESS BAR
+        <a asp-page="./Sortable" class="demo-nav-link">
+            ← PREVIOUS: SORTABLE
         </a>
-        <a href="/Animations" class="demo-nav-link">
-            NEXT: ANIMATIONS →
-        </a>
+        <span></span> <!-- Empty span for spacing since this is the last page -->
     </div>
 </div>
+
+@await Html.PartialAsync("_MoreExamples")

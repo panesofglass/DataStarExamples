@@ -1,27 +1,38 @@
 @page
 @model RazorPages.Pages.Indicator
 
+@{
+    ViewData["Title"] = "Indicator (ASP.NET Razor Pages)";
+}
+
 <div class="demo-section">
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/LazyLoad" class="demo-nav-link">
-            ← PREVIOUS: LAZY LOAD
+        <a asp-page="./FileUpload" class="demo-nav-link">
+            ← PREVIOUS: FILE UPLOAD
         </a>
-        <a href="/InlineValidation" class="demo-nav-link">
-            NEXT: INLINE VALIDATION →
+        <a asp-page="./InfiniteScroll" class="demo-nav-link">
+            NEXT: INFINITE SCROLL →
         </a>
     </div>
 
-    <h2>Loading Indicator (ASP.NET Razor Pages)</h2>
-    <div class="demo-content">
-        <p>Loading indicator demonstration will go here...</p>
-    </div>
+    <section id="example">
+        <h2>Indicator (ASP.NET Razor Pages)</h2>
+        <p>Indicator demonstration will go here...</p>
+        <div class="demo-content" role="region" aria-label="Demo visualization">
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 4px; text-align: center;">
+                demo goes here
+            </div>
+        </div>
+    </section>
 
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/LazyLoad" class="demo-nav-link">
-            ← PREVIOUS: LAZY LOAD
+        <a asp-page="./FileUpload" class="demo-nav-link">
+            ← PREVIOUS: FILE UPLOAD
         </a>
-        <a href="/InlineValidation" class="demo-nav-link">
-            NEXT: INLINE VALIDATION →
+        <a asp-page="./InfiniteScroll" class="demo-nav-link">
+            NEXT: INFINITE SCROLL →
         </a>
     </div>
-</div> 
+</div>
+
+@await Html.PartialAsync("_MoreExamples")

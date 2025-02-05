@@ -171,9 +171,7 @@ public class HomeController : Controller
                 notesListHtml += "</div>";
             }
         }
-
         notesListHtml += "</div>";
-
         await SseHelper.SendServerSentEventAsync(Response, notesListHtml);
     }
 

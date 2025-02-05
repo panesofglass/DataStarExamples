@@ -1,27 +1,40 @@
 @page
 @model RazorPages.Pages.Animations
 
+@{
+    ViewData["Title"] = "Animations (ASP.NET Razor Pages)";
+}
+
 <div class="demo-section">
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/ValueSelect" class="demo-nav-link">
-            ← PREVIOUS: VALUE SELECT
+        <a asp-page="./ActiveSearch" class="demo-nav-link">
+            ← PREVIOUS: ACTIVE SEARCH
         </a>
-        <a href="/FileUpload" class="demo-nav-link">
-            NEXT: FILE UPLOAD →
+        <a asp-page="./BulkUpdate" class="demo-nav-link">
+            NEXT: BULK UPDATE →
         </a>
     </div>
 
-    <h2>Animations (ASP.NET Razor Pages)</h2>
-    <div class="demo-content">
-        <p>Animations demonstration will go here...</p>
-    </div>
+    <!-- example section -->
+    <section id="example">
+        <h2>Animations (ASP.NET Razor Pages)</h2>
+        <p>Live data updates and streaming visualizations</p>
+
+        <div class="demo-content" role="region" aria-label="Demo visualization">
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 4px; text-align: center;">
+                demo goes here
+            </div>
+        </div>
+    </section>
 
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/ValueSelect" class="demo-nav-link">
-            ← PREVIOUS: VALUE SELECT
+        <a asp-page="./ActiveSearch" class="demo-nav-link">
+            ← PREVIOUS: ACTIVE SEARCH
         </a>
-        <a href="/FileUpload" class="demo-nav-link">
-            NEXT: FILE UPLOAD →
+        <a asp-page="./BulkUpdate" class="demo-nav-link">
+            NEXT: BULK UPDATE →
         </a>
     </div>
-</div> 
+</div>
+
+@await Html.PartialAsync("_MoreExamples")

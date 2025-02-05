@@ -1,85 +1,65 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    @* <meta http-equiv="refresh" content="5" /> *@
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/css/demo.css" asp-append-version="true"/>
-    <script type="module"
-            src="~/js/datastar-v1.0.0-beta.2.js"></script>
-</head>
-<body>
-<div class="demo-container">
-    <!-- Left Sidebar -->
-    <aside class="demo-sidebar" aria-label="Examples navigation">
-        <a href="/" style="text-decoration: none;">
-            <h1>DATASTAR Examples</h1>
-        </a>
-        <p style="color: #C9A75F">PORTED HTMX EXAMPLES</p>
-        <nav class="demo-nav">
-            <ul role="list">
-                <li><a href="/ClickToEdit" class="demo-link">CLICK TO EDIT <span class="status">TODO</span></a></li>
-                <li><a href="/BulkUpdate" class="demo-link">BULK UPDATE <span class="status">TODO</span></a></li>
-                <li><a href="/ClickToLoad" class="demo-link">CLICK TO LOAD <span class="status">TODO</span></a></li>
-                <li><a href="/DeleteRow" class="demo-link">DELETE ROW <span class="status">TODO</span></a></li>
-                <li><a href="/EditRow" class="demo-link">EDIT ROW <span class="status">TODO</span></a></li>
-                <li><a href="/LazyLoad" class="demo-link">LAZY LOAD <span class="status">TODO</span></a></li>
-                <li><a href="/Indicator" class="demo-link">INDICATOR <span class="status">TODO</span></a></li>
-                <li><a href="/InlineValidation" class="demo-link">INLINE VALIDATION <span
-                            class="status">TODO</span></a></li>
-                <li><a href="/InfiniteScroll" class="demo-link">INFINITE SCROLL <span class="status">TODO</span></a>
-                </li>
-                <li><a href="/ActiveSearch" class="demo-link">ACTIVE SEARCH</a></li>
-                <li><a href="/ProgressBar" class="demo-link">PROGRESS BAR <span class="status">TODO</span></a></li>
-                <li><a href="/ValueSelect" class="demo-link">VALUE SELECT <span class="status">TODO</span></a></li>
-                <li><a href="/Animations" class="demo-link">ANIMATIONS <span class="status">TODO</span></a></li>
-                <li><a href="/FileUpload" class="demo-link">FILE UPLOAD <span class="status">TODO</span></a></li>
-                <li><a href="/DialogsBrowser" class="demo-link">DIALOGS BROWSER <span class="status">TODO</span></a>
-                </li>
-                <li><a href="/LazyTabs" class="demo-link">LAZY TABS <span class="status">TODO</span></a></li>
-                <li><a href="/Sortable" class="demo-link">SORTABLE <span class="status">TODO</span></a></li>
-            </ul>
-        </nav>
-    </aside>
 
-    <!-- Right Content Area -->
-    <main class="demo-content" role="main" aria-label="Example content">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="@ViewData["Title"] - Datastar ASP.NET Core Examples - A lightweight hypermedia framework for building reactive web applications">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="~/css/reset.css" />
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <script type="module"
+            src="https://cdn.jsdelivr.net/gh/starfederation/datastar@v1.0.0-beta.3/bundles/datastar.js"></script>
+    <title>@ViewData["Title"] - Datastar is The Hypermedia Framework</title>
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico">
+</head>
+
+<body>
+<div class="container">
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="header-images">
+                <a href="https://data-star.dev" target="_blank" aria-label="Visit Datastar website">
+                    <img src="~/img/rocket.webp" alt="Datastar logo">
+                </a>
+                <a href="https://github.com/RickTheHat/DatastarExamples" target="_blank"
+                   aria-label="Visit Rick's GitHub profile">
+                    <img src="~/img/rick.jpg" alt="Author profile" class="profile">
+                </a>
+            </div>
+            <a href="/" style="text-decoration: none; cursor: pointer; color: #fff;">
+                <h1>ASP.NET Core Examples with Datastar</h1>
+            </a>
+        </div>
+        <p>The hypermedia framework • Scale up from simple to real-time web apps</p>
+        <a href="/#examples" class="button">GO TO EXAMPLES</a>
+    </header>
+    <!-- ./ Header -->
+
+    <!-- Main -->
+    <main id="main-content">
         @RenderBody()
     </main>
+    <!-- ./Main -->
+
+    <!-- Footer -->
+    <footer>
+        <small>
+            <p>
+                Inspired by • <a href="https://en.wikipedia.org/wiki/Hypermedia" target="_blank">Hypermedia</a> • <a
+                    href="https://en.wikipedia.org/wiki/HATEOAS" target="_blank">HATEOAS</a> • <a
+                    href="https://htmx.org/" target="_blank">Htmx</a><br>Built with • <a
+                    href="https://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT license</a> • <a
+                    href="https://data-star.dev" target="_blank">Datastar</a> • <a
+                    href="https://dotnet.microsoft.com/en-us/apps/aspnet" target="_blank">ASP.NET
+                    Core</a>
+            </p>
+        </small>
+    </footer>
+    <!-- ./ Footer -->
 </div>
-
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", false)
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const links = document.querySelectorAll('.demo-link');
-        const currentPath = window.location.pathname;
-
-        // Remove active class from all links
-        links.forEach(l => l.classList.remove('active'));
-
-        // If we're at the root, activate ActiveSearch
-        if (currentPath === '/' || currentPath.toLowerCase() === '/home') {
-            window.location.href = '/active-search';
-        } else {
-            // Otherwise highlight the current page link
-            links.forEach(link => {
-                if (link.getAttribute('href') === currentPath) {
-                    link.classList.add('active');
-                    // Scroll the active link into view with some padding
-                    setTimeout(() => {
-                        link.scrollIntoView({behavior: 'smooth', block: 'center'});
-                    }, 100);
-                }
-            });
-        }
-     });
-</script>
 </body>
+
 </html>

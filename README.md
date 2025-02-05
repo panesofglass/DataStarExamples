@@ -1,16 +1,16 @@
 # Datastar Examples
 ### built using [Datastar](https://data-star.dev/) and [ASP.NET Core Web Apps](https://dotnet.microsoft.com/en-us/apps/aspnet)
 
-This repository contains three implementations of active search functionality using Datastar:
+This repository contains four implementations of functionality using [Datastar](https://data-star.dev/) & [ASP.NET Core Web Apps](https://dotnet.microsoft.com/en-us/apps/aspnet):
 
 1. *working* > An [ASP.NET Core Web App](https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-9.0) (Model-View-Controller)
 2. ****not*** working* > An [ASP.NET Core Web App](https://learn.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-9.0&tabs=visual-studio) (Razor Pages)
-  *for Razor Pages > getting a 400 Bad Request error when passing in http://localhost:5019/Index?handler=Search*
+  *for Razor Pages > getting a 400 Bad Request error when passing in /Index?handler=Search*
 3. *working* > An [ASP.NET Core Web App](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview?view=aspnetcore-9.0) (Minimal APIs)
 4. ****not*** setup yet* > A [FastEndpoints](https://fast-endpoints.com/docs/server-sent-events) project
 
-## Demo > Active Search
-![Active Search Demo](mvc-datastar-examples.png)  
+## Home Page
+![Active Search Demo](datastar-examples.png)  
 
 ## What is Datastar?
 
@@ -18,6 +18,13 @@ Datastar is a lightweight hypermedia framework that brings reactive functionalit
 
 - The simplicity and reliability of server-side rendering
 - The dynamic, reactive user experience in the style of a Single Page Application (SPA) but without the need for JavaScript
+
+## Why Use Datastar?
+
+- **Minimal JavaScript**: Just include a single 13.3 KiB file - smaller than Alpine.js and Htmx combined
+- **HATEOAS Compliant**: The only JavaScript you need is the library itself > no additional client-side code required
+- **Server Technology Agnostic**: Write your backend in any language
+- **Real-time Updates**: Utilizes server-sent events for fast, responsive experiences
 
 ## Benefits
 
@@ -28,27 +35,6 @@ Datastar is a lightweight hypermedia framework that brings reactive functionalit
 - **Instant Feedback**: Create responsive interfaces that feel like native apps - type in a search box and watch results filter instantly, all without complex client-side code
 - **Focus on Features, Not Plumbing**: Spend your time building features users love instead of managing state, writing JavaScript, or debugging client-server communication
 - **Say Goodbye to Full Page Refreshes**: The dreaded full page refresh is a thing of the past with Datastar - enjoy smooth, partial updates that keep your users in flow
-
-## Why Use Datastar?
-
-- **Minimal JavaScript**: Just include a single 12.9 KiB file - smaller than Alpine.js and Htmx combined
-- **HATEOAS Compliant**: The only JavaScript you need is the library itself - no additional client-side code required
-- **Server Technology Agnostic**: Write your backend in any language
-- **Real-time Updates**: Utilizes server-sent events for fast, responsive experiences
-
-## About This Example
-
-This repository demonstrates Datastar's capabilities through an active search implementation. Users can type search queries and see results update in real-time, with all the heavy lifting handled server-side. Both the MVC and Razor Pages implementations achieve the same functionality using their respective architectural patterns.
-
-## Getting Started
-
-Both implementations demonstrate how to:
-- Set up Datastar in an [ASP.NET Core Web App](https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-9.0)
-- Implement real-time search functionality
-- Handle server-sent events
-- Structure your application for reactive behavior
-
-For more details and documentation, visit the [Datastar Active Search Example](https://data-star.dev/examples/active_search)
 
 ## Community
 
@@ -66,7 +52,7 @@ Join our growing community of developers:
   - Best practices
   - Implementation examples
 
-- **GitHub**: Check out our [library source code](https://github.com/starfederation/datastar/tree/main/library) to:
+- **GitHub**: Check out the Datastar [library source code](https://github.com/starfederation/datastar/tree/main/library) to:
   - Explore the implementation
   - Contribute to the project
   - Report issues

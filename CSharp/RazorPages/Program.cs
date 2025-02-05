@@ -14,20 +14,11 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapStaticAssets();
 app.MapRazorPages()
     .WithStaticAssets();
-
-// Remove the fallback and add direct root path redirect
-app.MapGet("/", context =>
-{
-    context.Response.Redirect("/ActiveSearch");
-    return Task.CompletedTask;
-});
 
 app.Run();

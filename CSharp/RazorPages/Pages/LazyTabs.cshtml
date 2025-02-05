@@ -1,27 +1,38 @@
 @page
 @model RazorPages.Pages.LazyTabs
 
+@{
+    ViewData["Title"] = "Lazy Tabs (ASP.NET Razor Pages)";
+}
+
 <div class="demo-section">
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/DialogsBrowser" class="demo-nav-link">
-            ← PREVIOUS: DIALOGS BROWSER
+        <a asp-page="./LazyLoad" class="demo-nav-link">
+            ← PREVIOUS: LAZY LOAD
         </a>
-        <a href="/sortable" class="demo-nav-link">
-            NEXT: SORTABLE →
+        <a asp-page="./ProgressBar" class="demo-nav-link">
+            NEXT: PROGRESS BAR →
         </a>
     </div>
 
-    <h2>Lazy Tabs (ASP.NET Razor Pages)</h2>
-    <div class="demo-content">
+    <section id="example">
+        <h2>Lazy Tabs (ASP.NET Razor Pages)</h2>
         <p>Lazy tabs demonstration will go here...</p>
-    </div>
+        <div class="demo-content" role="region" aria-label="Demo visualization">
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 4px; text-align: center;">
+                demo goes here
+            </div>
+        </div>
+    </section>
 
     <div style="display: flex; justify-content: space-between; gap: 1rem;">
-        <a href="/DialogsBrowser" class="demo-nav-link">
-            ← PREVIOUS: DIALOGS BROWSER
+        <a asp-page="./LazyLoad" class="demo-nav-link">
+            ← PREVIOUS: LAZY LOAD
         </a>
-        <a href="/sortable" class="demo-nav-link">
-            NEXT: SORTABLE →
+        <a asp-page="./ProgressBar" class="demo-nav-link">
+            NEXT: PROGRESS BAR →
         </a>
     </div>
-</div> 
+</div>
+
+@await Html.PartialAsync("_MoreExamples")
