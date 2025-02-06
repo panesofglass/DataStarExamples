@@ -1,7 +1,8 @@
 using System.Runtime.CompilerServices;
-using StarFederation.Datastar.DependencyInjection;
+using RazorSlices;
 using MinimalSdk.Models;
 using MinimalSdk.Slices;
+using StarFederation.Datastar.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,35 +21,38 @@ if (app.Environment.IsDevelopment())
 
 app.MapGet("/", () => Results.Extensions.RazorSlice<Home>());
 
-var displayDate = false;
-
-app.MapGet("/displayDate", async (IDatastarServerSentEventService sse) =>
-{
-    displayDate = true;
-    while (displayDate)
+app.MapGet(
+    "/displayDate",
+    async (IDatastarServerSentEventService sse) =>
     {
-        var today = DateTime.Now.ToString("%y-%M-%d %h:%m:%s");
-        // TODO: use partial rather than explicit string
-        await sse.MergeFragmentsAsync(
-            $"""<div id="target"><span id="date"><b>{today}</b><button data-on-click="@get('/removeDate')">Remove</button></span></div>""");
+        var slice = DisplayDate.Create(DateTime.Now);
+        var fragment = await slice.RenderAsync();
+        await sse.MergeFragmentsAsync(fragment);
         await Task.Delay(1000);
     }
-});
+);
 
-app.MapGet("/removeDate", async (IDatastarServerSentEventService sse) =>
-{
-    displayDate = false;
-    await sse.RemoveFragmentsAsync("#date");
-});
+app.MapGet(
+    "/removeDate",
+    async (IDatastarServerSentEventService sse) =>
+    {
+        await sse.RemoveFragmentsAsync("#date");
+    }
+);
 
-app.MapPost("/changeOutput", async (IDatastarServerSentEventService sse, IDatastarSignalsReaderService dsSignals) =>
-{
-    var signals = await dsSignals.ReadSignalsAsync<HomeSignals>();
-    var newSignals = new HomeSignals { Output = $"Your input: {signals.Input}" };
-    await sse.MergeSignalsAsync(newSignals.Serialize());
-});
+app.MapPost(
+    "/changeOutput",
+    async (IDatastarServerSentEventService sse, IDatastarSignalsReaderService dsSignals) =>
+    {
+        var signals = await dsSignals.ReadSignalsAsync<HomeSignals>();
+        var newSignals = new HomeSignals { Output = $"Your input: {signals.Input}" };
+        await sse.MergeSignalsAsync(newSignals.Serialize());
+    }
+);
 
-Console.WriteLine($"RuntimeFeature.IsDynamicCodeSupported = {RuntimeFeature.IsDynamicCodeSupported}");
+Console.WriteLine(
+    $"RuntimeFeature.IsDynamicCodeSupported = {RuntimeFeature.IsDynamicCodeSupported}"
+);
 Console.WriteLine($"RuntimeFeature.IsDynamicCodeCompiled = {RuntimeFeature.IsDynamicCodeCompiled}");
 
 app.Run();
