@@ -4,11 +4,11 @@
 <html lang="en">
 <head>
     <title>@Model.Title</title>
+    <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@1.0.0-beta.3/bundles/datastar.js"></script>
     @await RenderSectionAsync("head")
 </head>
 <body>
 @await RenderBodyAsync()
-
 <footer>
     @await RenderSectionAsync("footer")
 </footer>

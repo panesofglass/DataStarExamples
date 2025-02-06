@@ -1,10 +1,14 @@
-﻿@inherits RazorSlice<DateTime>
+﻿@inherits RazorSlice
 @implements IUsesLayout<_Layout, LayoutModel>
 
-<p>
-    Hello from Razor Slices! The time is @Model.
-</p>
+<main class="container" id="main" data-signals="{'input':'','output':'what'}">
+    <button data-on-click="@@get('/displayDate')">Display Date</button>
+    <div id="target"></div>
+    <input type="text" placeholder="input:" data-bind-input /><br/>
+    <span data-text="$output"></span>
+    <button data-on-click="@@post('/changeOutput')">Change Output</button>
+</main>
 
 @functions {
-    public LayoutModel LayoutModel => new() { Title = "Hello" };
+    public LayoutModel LayoutModel => new() { Title = "D* Demo" };
 }
