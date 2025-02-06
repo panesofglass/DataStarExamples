@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPI", "CSharp\Minima
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPages", "CSharp\RazorPages\RazorPages.csproj", "{8A49F342-A30C-4527-B5AA-1772C55BE199}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSharp", "CSharp", "{4B13E06D-D750-4CF7-AF68-93224AB7A292}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalSdk", "CSharp\MinimalSdk\MinimalSdk.csproj", "{3287CBFD-A225-48AE-9788-4D344AB8BC87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,12 @@ Global
 		{8A49F342-A30C-4527-B5AA-1772C55BE199}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A49F342-A30C-4527-B5AA-1772C55BE199}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A49F342-A30C-4527-B5AA-1772C55BE199}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3287CBFD-A225-48AE-9788-4D344AB8BC87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3287CBFD-A225-48AE-9788-4D344AB8BC87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3287CBFD-A225-48AE-9788-4D344AB8BC87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3287CBFD-A225-48AE-9788-4D344AB8BC87}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3287CBFD-A225-48AE-9788-4D344AB8BC87} = {4B13E06D-D750-4CF7-AF68-93224AB7A292}
 	EndGlobalSection
 EndGlobal

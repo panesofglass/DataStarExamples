@@ -1,0 +1,10 @@
+﻿@inherits RazorSlice<DateTime>
+@implements IUsesLayout<_Layout, LayoutModel>
+
+<p>
+    Hello from Razor Slices! The time is @Model.
+</p>
+
+@functions {
+    public LayoutModel LayoutModel => new() { Title = "Hello" };
+}
