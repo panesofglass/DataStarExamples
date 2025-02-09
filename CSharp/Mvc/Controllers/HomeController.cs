@@ -208,5 +208,25 @@ public class HomeController : Controller
         }
     }
 
+    // Endpoint that returns the image of a graph after delay
+    public async Task LazyLoadImgGraph()
+    {
+        // Set SSE headers
+        await SseHelper.SetSseHeadersAsync(Response);
+        
+        // Simulate initial delay
+        await Task.Delay(5000);
+
+        // Create HTML with transition and settling behavior
+        const string graphHtml = @"
+            <img id=""lazy-load""
+                class=""transition-opacity""
+                src=""/img/tokyo.png""
+                alt=""Tokyo Graph"" />";
+
+        // Send the HTML to the client
+        await SseHelper.SendServerSentEventAsync(Response, graphHtml, null, null, 1000, false, false);
+    }
+
     #endregion
 }
