@@ -213,7 +213,7 @@ public class HomeController : Controller
     {
         // Set SSE headers
         await SseHelper.SetSseHeadersAsync(Response);
-        
+
         // Simulate initial delay
         await Task.Delay(5000);
 
@@ -226,6 +226,20 @@ public class HomeController : Controller
 
         // Send the HTML to the client
         await SseHelper.SendServerSentEventAsync(Response, graphHtml, null, null, 1000, false, false);
+    }
+
+    public async Task FetchIndicator()
+    {
+        await SseHelper.SetSseHeadersAsync(Response);
+
+        var indicatorEmptyHtml = "<p id=\"greeting\">No data yet, please wait...</p>";
+        await SseHelper.SendServerSentEventAsync(Response, indicatorEmptyHtml);
+
+        // Simulate delay
+        await Task.Delay(2000);
+
+        var indicatorGreetingHtml = $"<p id=\"greeting\">Data is ready! <br>{DateTimeOffset.UtcNow.ToString("O")}</p>";
+        await SseHelper.SendServerSentEventAsync(Response, indicatorGreetingHtml);
     }
 
     #endregion
