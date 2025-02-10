@@ -699,3 +699,11 @@ section h3 {
 .transition-opacity {
     transition: opacity 0.3s ease;
 }
+
+/* Update the demo-content class instead of creating a new demo-box */
+.demo-content {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 4px;
+    text-align: left;
+}
