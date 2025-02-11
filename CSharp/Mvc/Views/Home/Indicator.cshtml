@@ -16,16 +16,32 @@
         <h2>Indicator (ASP.NET MVC)</h2>
         <p>Indicator demonstration will go here...</p>
         <div class="demo-content" role="region" aria-label="Demo visualization">
-            <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 4px; text-align: center;">
-                <button
-                    id="greetingBtn"
-                    data-on-click="@@get('Home/FetchIndicator')"
-                >
-                    Click me for a greeting
-                </button>
-                <p id="greeting"></p>
+            <div
+                class="indicator"
+                data-class="{loading: $fetching}"
+            >
+                Loading Indicator
             </div>
+            <button
+                id="greetingBtn"
+                data-indicator-fetching
+                data-on-click="@@get('Home/FetchIndicator')"
+                data-attr-disabled="$fetching"
+            >
+                Click me for a greeting
+            </button>
+            <div id="greeting"></div>
         </div>
+        <style>
+            .indicator {
+                opacity:0;
+                transition: opacity 300ms ease-out;
+            }
+            .indicator.loading {
+                opacity:1;
+                transition: opacity 300ms ease-in;
+            }
+        </style>
     </section>
 
     <div style="display: flex; justify-content: space-between; gap: 1rem;">

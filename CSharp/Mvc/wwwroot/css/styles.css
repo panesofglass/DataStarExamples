@@ -707,3 +707,41 @@ section h3 {
     border-radius: 4px;
     text-align: left;
 }
+
+.button-disabled {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    cursor: not-allowed !important;
+    border: none !important;
+    width: 100%;
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.button-container {
+    margin-top: var(--spacing-md);
+    width: 100%;
+}
+
+.button {
+    width: 100%;
+    padding: var(--spacing-md);
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: var(--font-mono);
+}
+
+.button:hover {
+    background: #b39552;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.button:active {
+    transform: translateY(0);
+    color: white;
+}
