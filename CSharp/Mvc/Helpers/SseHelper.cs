@@ -30,19 +30,34 @@ public static class SseHelper
 
         var data = "event: datastar-merge-fragments\n";
 
-        if (!string.IsNullOrEmpty(selector)) data += $"data: selector {selector}\n";
+        if (!string.IsNullOrEmpty(selector))
+        {
+            data += $"data: selector {selector}\n";
+        }
 
-        if (!string.IsNullOrEmpty(mergeMode)) data += $"data: merge {mergeMode}\n";
+        if (!string.IsNullOrEmpty(mergeMode))
+        {
+            data += $"data: mergeMode {mergeMode}\n";
+        }
 
-        if (settleDuration != 300) data += $"data: settle {settleDuration}\n";
+        if (settleDuration != 300)
+        {
+            data += $"data: settleDuration {settleDuration}\n";
+        }
 
-        if (useViewTransition) data += "data: view-transition\n";
+        if (useViewTransition)
+        {
+            data += $"data: useViewTransition {useViewTransition}\n";
+        }
 
         data += $"data: fragments {fragment}\n\n";
 
         await response.Body.WriteAsync(Encoding.UTF8.GetBytes(data));
         await response.Body.FlushAsync();
 
-        if (end) response.Body.Close();
+        if (end)
+        {
+            response.Body.Close();
+        }
     }
 }
