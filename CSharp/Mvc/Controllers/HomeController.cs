@@ -3,6 +3,7 @@ using Bogus;
 using Microsoft.AspNetCore.Mvc;
 using Mvc.Helpers;
 using Mvc.Models;
+using System.Text.Json;
 
 namespace Mvc.Controllers;
 
@@ -66,7 +67,34 @@ public class HomeController : Controller
 
     public IActionResult ClickToLoad()
     {
-        return View();
+        if (_notes == null)
+        {
+            var count = _random.Next(5, 15);
+            var todoFaker = new Faker<Note>()
+                .RuleFor(t => t.Id, f => f.IndexFaker + 1)
+                .RuleFor(t => t.Content, f => f.Lorem.Sentence());
+
+            _notes = todoFaker.Generate(count).ToList();
+
+            // Add exactly 1 notes with "hello"
+            for (var i = 0; i < 1; i++)
+            {
+                var randomIndex = _random.Next(_notes.Count);
+                _notes[randomIndex] = new Note
+                {
+                    Id = _notes[randomIndex].Id,
+                    Content = $"hello! {new Faker().Lorem.Sentence()}"
+                };
+            }
+
+            _totalNoteCount = _notes.Count;
+        }
+
+        ViewData["TotalCount"] = _totalNoteCount;
+        var displayNotes = _notes.Take(2).ToList();
+        ViewData["CurrentCount"] = displayNotes.Count;
+
+        return View(displayNotes);
     }
 
     public IActionResult DeleteRow()
@@ -171,6 +199,7 @@ public class HomeController : Controller
                 notesListHtml += "</div>";
             }
         }
+
         notesListHtml += "</div>";
         await SseHelper.SendServerSentEventAsync(Response, notesListHtml);
     }
@@ -180,14 +209,17 @@ public class HomeController : Controller
         var actionType = Request.Query["actionType"];
 
         var progressBarHtml = "<progress id=\"progressBar\" value=\"0\" max=\"100\" style=\"width: 100%;\"></progress>";
-        var progressBarPercentageHtml = "<span id=\"progressBarPercentage\" style=\"position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-weight: bold;\">0%</span>";
+        var progressBarPercentageHtml =
+            "<span id=\"progressBarPercentage\" style=\"position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-weight: bold;\">0%</span>";
 
         if (actionType == "start")
         {
             for (var i = 0; i <= 100; i++)
             {
-                progressBarHtml += $"<progress id=\"progressBar\" value=\"{i}\" max=\"100\" style=\"width: 100%;\"></progress>";
-                progressBarPercentageHtml += $"<span id=\"progressBarPercentage\" style=\"position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-weight: bold;\">{i}%</span>";
+                progressBarHtml +=
+                    $"<progress id=\"progressBar\" value=\"{i}\" max=\"100\" style=\"width: 100%;\"></progress>";
+                progressBarPercentageHtml +=
+                    $"<span id=\"progressBarPercentage\" style=\"position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-weight: bold;\">{i}%</span>";
 
                 await SseHelper.SendServerSentEventAsync(Response, progressBarHtml);
                 await SseHelper.SendServerSentEventAsync(Response, progressBarPercentageHtml);
@@ -215,7 +247,7 @@ public class HomeController : Controller
         await SseHelper.SetSseHeadersAsync(Response);
 
         // Simulate initial delay
-        await Task.Delay(5000);
+        await Task.Delay(2000);
 
         // Create HTML with transition and settling behavior
         const string graphHtml = @"
@@ -232,14 +264,90 @@ public class HomeController : Controller
     {
         await SseHelper.SetSseHeadersAsync(Response);
 
-        var indicatorEmptyHtml = "<p id=\"greeting\">No data yet, please wait...</p>";
+        const string indicatorEmptyHtml = "<p id=\"greeting\">No data yet, please wait...</p>";
         await SseHelper.SendServerSentEventAsync(Response, indicatorEmptyHtml);
 
         // Simulate delay
         await Task.Delay(2000);
 
-        var indicatorGreetingHtml = $"<p id=\"greeting\">Data is ready! <br>{DateTimeOffset.UtcNow.ToString("O")}</p>";
+        var indicatorGreetingHtml = $"<p id=\"greeting\">Data is ready! <br>{DateTimeOffset.UtcNow:O}</p>";
         await SseHelper.SendServerSentEventAsync(Response, indicatorGreetingHtml);
+    }
+
+    public async Task ClickToLoadMore()
+    {
+        try
+        {
+            // Set SSE headers
+            await SseHelper.SetSseHeadersAsync(Response);
+
+            // Check if the "datastar" query parameter exists
+            if (HttpContext.Request.Query.ContainsKey("datastar"))
+            {
+                // Get the "datastar" query parameter values
+                var json = HttpContext.Request.Query["datastar"].ToString();
+
+                // DEBUG: Print the raw JSON string
+                //Console.WriteLine($"Raw datastar value: {json}");
+
+                // Deserialize the JSON string into a ClickToLoadSignals object
+                var signals = JsonSerializer.Deserialize<ClickToLoadSignals>(json);
+
+                // DEBUG: Print the deserialized signals
+                //Console.WriteLine($"Deserialized signals: {signals.Offset}, {signals.Limit}");
+
+                // DEBUG: Print the deserialized values
+                // Console.WriteLine(signals != null
+                //     ? $"Offset: {signals.Offset}, Limit: {signals.Limit}"
+                //     : "Failed to deserialize datastar values");
+
+                // get the filtered notes
+                var filteredNotes = _notes
+                    .Skip(signals.Offset)
+                    .Take(signals.Limit)
+                    .ToList();
+
+                // update the total counts
+                var totalCount = _notes.Count;
+                var currentCount = Math.Min(signals.Offset + filteredNotes.Count, totalCount);
+                var countHtml = $"<p id=\"total-count\">Showing {currentCount} of {totalCount} notes</p>";
+                await SseHelper.SendServerSentEventAsync(Response, countHtml);
+
+                // build the html for the new notes
+                var notesHtml = "";
+                foreach (var note in filteredNotes)
+                {
+                    notesHtml += $@"
+                         <div class=""note-item"">
+                             <p>{note.Content}</p>
+                         </div>";
+                }
+                await SseHelper.SendServerSentEventAsync(Response, notesHtml, "#notes-list", "append", 1000, false, false);
+
+                // Check if we've loaded all notes
+                if (filteredNotes.Count == 0 || currentCount >= totalCount)
+                {
+                    var disabledButtonHtml = @"
+                        <button 
+                            id=""load-more-btn"" 
+                            class=""button-disabled""
+                            disabled>
+                            No More Results
+                        </button>";
+                    await SseHelper.SendServerSentEventAsync(Response, disabledButtonHtml, "#load-more-btn", "outer");
+                    return;
+                }
+            }
+            else
+            {
+                Console.WriteLine("No datastar query parameters found.");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     #endregion

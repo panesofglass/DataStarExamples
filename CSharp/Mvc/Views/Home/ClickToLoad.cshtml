@@ -14,10 +14,28 @@
 
     <section id="example">
         <h2>Click To Load (ASP.NET MVC)</h2>
-        <p>Click to load demonstration will go here...</p>
-        <div class="demo-content" role="region" aria-label="Demo visualization">
-            <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 4px; text-align: center;">
-                demo goes here
+        <p>This example shows how to implement click-to-load the next page in a table of data, the crux of the demo is
+            the final row</p>
+        <div class="demo-content" role="region" aria-label="Click To Load (ASP.NET MVC) Demo Visualization">
+            <p id="total-count">
+                Showing @ViewData["CurrentCount"] of @ViewData["TotalCount"] notes
+            </p>
+            <div id="notes-list" class="notes-list" data-signals="{ offset: 0, limit: 2 }">
+                @foreach (var note in Model)
+                {
+                    <div class="note-item">
+                        <p>@note.Content</p>
+                    </div>
+                }
+            </div>
+            <div class="button-container">
+                <button 
+                    id="load-more-btn"
+                    data-on-click="$offset=$offset+$limit; $limit=2; @@get('Home/ClickToLoadMore')"
+                    data-attr-disabled="$fetching"
+                    class="button">
+                    Load More
+                </button>
             </div>
         </div>
     </section>
