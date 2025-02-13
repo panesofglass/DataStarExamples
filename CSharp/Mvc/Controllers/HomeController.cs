@@ -263,14 +263,10 @@ public class HomeController : Controller
     public async Task FetchIndicator()
     {
         await SseHelper.SetSseHeadersAsync(Response);
-
-        const string indicatorEmptyHtml = "<p id=\"greeting\">No data yet, please wait...</p>";
-        await SseHelper.SendServerSentEventAsync(Response, indicatorEmptyHtml);
-
-        // Simulate delay
+        var indicatorEmptyGreetingHtml = $"<p id=\"greeting\"></p>";
+        await SseHelper.SendServerSentEventAsync(Response, indicatorEmptyGreetingHtml);
         await Task.Delay(2000);
-
-        var indicatorGreetingHtml = $"<p id=\"greeting\">Data is ready! <br>{DateTimeOffset.UtcNow:O}</p>";
+        var indicatorGreetingHtml = $"<p id=\"greeting\">Hello, the time is {DateTimeOffset.UtcNow:O}</p>";
         await SseHelper.SendServerSentEventAsync(Response, indicatorGreetingHtml);
     }
 

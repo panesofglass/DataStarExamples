@@ -13,14 +13,18 @@
     </div>
 
     <section id="example">
-        <h2>Indicator (ASP.NET MVC)</h2>
+        <h2 id="indicator-demo">
+            <a href="#indicator-demo" class="header-anchor">
+                Indicator (ASP.NET MVC)
+            </a>
+        </h2>
         <p>Indicator demonstration will go here...</p>
-        <div class="demo-content" role="region" aria-label="Demo visualization">
+        <div class="demo-content" role="region" aria-label="Demo visualization" data-signals="{fetching: false}">
             <div
                 class="indicator"
                 data-class="{loading: $fetching}"
             >
-                Loading Indicator
+                Loading Indicator<span class="loading-dots"></span>
             </div>
             <button
                 id="greetingBtn"
@@ -30,18 +34,8 @@
             >
                 Click me for a greeting
             </button>
-            <div id="greeting"></div>
+            <p id="greeting"></p>
         </div>
-        <style>
-            .indicator {
-                opacity:0;
-                transition: opacity 300ms ease-out;
-            }
-            .indicator.loading {
-                opacity:1;
-                transition: opacity 300ms ease-in;
-            }
-        </style>
     </section>
 
     <div style="display: flex; justify-content: space-between; gap: 1rem;">

@@ -11,7 +11,11 @@
 
 
 <section id="example">
-    <h2>Active Search (ASP.NET MVC)</h2>
+    <h2 id="active-search-demo">
+        <a href="#active-search-demo" class="header-anchor">
+            Active Search (ASP.NET MVC)
+        </a>
+    </h2>
     <p>This example actively searches a notes database as the user enters text</p>
     <p id="total-count">
         Showing @ViewData["CurrentCount"] of @ViewData["TotalCount"] notes
@@ -19,7 +23,7 @@
     <div class="example-content">
         <div class="search-container">
             <input type="text" placeholder="Search..." class="search-input" data-bind-input
-                   data-on-input__debounce.1000ms="@@put('Home/Search')"/>
+                data-on-input__debounce.1000ms="@@put('Home/Search')" />
         </div>
         <div id="notes-list" class="notes-list">
             @foreach (var note in Model)
