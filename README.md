@@ -9,7 +9,7 @@ This repository contains four implementations of functionality using [Datastar](
 3. *working* > An [ASP.NET Core Web App](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview?view=aspnetcore-9.0) (Minimal APIs)
 4. ****not*** setup yet* > A [FastEndpoints](https://fast-endpoints.com/docs/server-sent-events) project
 
-## Home Page
+## Example Page [https://datastar.rickgraner.com](https://datastar.rickgraner.com)
 ![Active Search Demo](datastar-examples.png)  
 
 ## What is Datastar?

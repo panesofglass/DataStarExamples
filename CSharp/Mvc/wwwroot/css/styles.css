@@ -784,3 +784,10 @@ h2:hover .header-anchor::after {
     content: " #";
     color: var(--accent-color);
 }
+
+.note-item.datastar-swapping {
+    opacity: 0;
+    height: 0px;
+    overflow: hidden;
+    transition: opacity 1s ease-out;
+}

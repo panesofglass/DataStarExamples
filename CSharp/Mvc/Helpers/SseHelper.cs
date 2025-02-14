@@ -12,27 +12,33 @@ public static class SseHelper
         await response.Body.FlushAsync();
     }
 
-    public static async Task SendServerSentEventAsync(
-        HttpResponse response
-        , string fragment
-        , string selector = null
-        , string mergeMode = null
+    public static async Task SendServerSentEventAsync(HttpResponse response
+        , string fragment = ""
+        , string selector = ""
+        , string mergeMode = ""
         , int settleDuration = 300
         , bool useViewTransition = false
-        , bool end = false)
+        , bool end = false
+        , string eventType = "datastar-merge-fragments"
+    )
     {
-        // Clean the fragment by removing all newlines and extra spaces
-        fragment = fragment
-            .Replace(Environment.NewLine, "")
-            .Replace("\n", "")
-            .Replace("\r", "")
-            .Trim();
-
-        var data = "event: datastar-merge-fragments\n";
+        var data = $"event: {eventType}\n";
 
         if (!string.IsNullOrEmpty(selector))
         {
             data += $"data: selector {selector}\n";
+        }
+
+        if (!string.IsNullOrEmpty(fragment))
+        {
+            // Clean the fragment by removing all newlines and extra spaces
+            fragment = fragment
+                .Replace(Environment.NewLine, "")
+                .Replace("\n", "")
+                .Replace("\r", "")
+                .Trim();
+
+            data += $"data: fragments {fragment}\n";
         }
 
         if (!string.IsNullOrEmpty(mergeMode))
@@ -50,7 +56,7 @@ public static class SseHelper
             data += $"data: useViewTransition {useViewTransition}\n";
         }
 
-        data += $"data: fragments {fragment}\n\n";
+        data += "\n";
 
         await response.Body.WriteAsync(Encoding.UTF8.GetBytes(data));
         await response.Body.FlushAsync();

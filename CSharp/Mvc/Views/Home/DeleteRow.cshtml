@@ -16,7 +16,25 @@
         <h2>Delete Row (ASP.NET MVC)</h2>
         <p>Delete row demonstration will go here...</p>
         <div class="demo-content" role="region" aria-label="Demo visualization">
-            demo goes here
+            <p id="total-count">
+                Showing @ViewData["TotalCount"] notes
+            </p>
+            <button
+                id="load-more-btn"
+                class="button button-disabled">
+                Reset
+            </button>
+            <div class="example-content">
+                <div id="notes-list" class="notes-list">
+                    @foreach (var note in Model)
+                    {
+                        <div id="note_@note.Id" class="note-item">
+                            <p>@note.Content</p>
+                            <button data-on-click="@@delete('Home/DeleteRowData/@note.Id')">Delete</button>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </section>
 

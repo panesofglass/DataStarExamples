@@ -20,30 +20,27 @@ public class HomeController : Controller
 
     public IActionResult ActiveSearch()
     {
-        if (_notes == null)
+        var count = _random.Next(25, 102);
+        var todoFaker = new Faker<Note>()
+            .RuleFor(t => t.Id, f => f.IndexFaker + 1)
+            .RuleFor(t => t.Content, f => f.Lorem.Sentence());
+
+        _notes = todoFaker.Generate(count).ToList();
+
+        // Add exactly 3 notes with "hello"
+        for (var i = 0; i < 3; i++)
         {
-            var count = _random.Next(25, 102);
-            var todoFaker = new Faker<Note>()
-                .RuleFor(t => t.Id, f => f.IndexFaker + 1)
-                .RuleFor(t => t.Content, f => f.Lorem.Sentence());
-
-            _notes = todoFaker.Generate(count).ToList();
-
-            // Add exactly 3 notes with "hello"
-            for (var i = 0; i < 3; i++)
+            var randomIndex = _random.Next(_notes.Count);
+            _notes[randomIndex] = new Note
             {
-                var randomIndex = _random.Next(_notes.Count);
-                _notes[randomIndex] = new Note
-                {
-                    Id = _notes[randomIndex].Id,
-                    Content = $"hello! {new Faker().Lorem.Sentence()}"
-                };
-            }
-
-            _totalNoteCount = _notes.Count;
+                Id = _notes[randomIndex].Id,
+                Content = $"hello! {new Faker().Lorem.Sentence()}"
+            };
         }
 
+        _totalNoteCount = _notes.Count;
         ViewData["TotalCount"] = _totalNoteCount;
+
         var displayNotes = _notes.Take(5).ToList();
         ViewData["CurrentCount"] = displayNotes.Count;
 
@@ -67,30 +64,27 @@ public class HomeController : Controller
 
     public IActionResult ClickToLoad()
     {
-        if (_notes == null)
+        var count = _random.Next(5, 10);
+        var todoFaker = new Faker<Note>()
+            .RuleFor(t => t.Id, f => f.IndexFaker + 1)
+            .RuleFor(t => t.Content, f => f.Lorem.Sentence());
+
+        _notes = todoFaker.Generate(count).ToList();
+
+        // Add exactly 1 notes with "hello"
+        for (var i = 0; i < 1; i++)
         {
-            var count = _random.Next(5, 15);
-            var todoFaker = new Faker<Note>()
-                .RuleFor(t => t.Id, f => f.IndexFaker + 1)
-                .RuleFor(t => t.Content, f => f.Lorem.Sentence());
-
-            _notes = todoFaker.Generate(count).ToList();
-
-            // Add exactly 1 notes with "hello"
-            for (var i = 0; i < 1; i++)
+            var randomIndex = _random.Next(_notes.Count);
+            _notes[randomIndex] = new Note
             {
-                var randomIndex = _random.Next(_notes.Count);
-                _notes[randomIndex] = new Note
-                {
-                    Id = _notes[randomIndex].Id,
-                    Content = $"hello! {new Faker().Lorem.Sentence()}"
-                };
-            }
-
-            _totalNoteCount = _notes.Count;
+                Id = _notes[randomIndex].Id,
+                Content = $"hello! {new Faker().Lorem.Sentence()}"
+            };
         }
 
+        _totalNoteCount = _notes.Count;
         ViewData["TotalCount"] = _totalNoteCount;
+
         var displayNotes = _notes.Take(2).ToList();
         ViewData["CurrentCount"] = displayNotes.Count;
 
@@ -99,7 +93,16 @@ public class HomeController : Controller
 
     public IActionResult DeleteRow()
     {
-        return View();
+        var todoFaker = new Faker<Note>()
+            .RuleFor(t => t.Id, f => f.IndexFaker + 1)
+            .RuleFor(t => t.Content, f => f.Lorem.Sentence());
+
+        _notes = todoFaker.Generate(5).ToList();
+        _totalNoteCount = _notes.Count;
+        ViewData["TotalCount"] = _totalNoteCount;
+        var displayNotes = _notes.Take(5).ToList();
+
+        return View(displayNotes);
     }
 
     public IActionResult DialogsBrowser()
@@ -257,93 +260,142 @@ public class HomeController : Controller
                 alt=""Tokyo Graph"" />";
 
         // Send the HTML to the client
-        await SseHelper.SendServerSentEventAsync(Response, graphHtml, null, null, 1000, false, false);
+        await SseHelper.SendServerSentEventAsync(Response, graphHtml, "", "", 500);
     }
 
     public async Task FetchIndicator()
     {
+        // Set SSE headers
         await SseHelper.SetSseHeadersAsync(Response);
-        var indicatorEmptyGreetingHtml = $"<p id=\"greeting\"></p>";
+
+        // Send the empty greeting  
+        var indicatorEmptyGreetingHtml = $"<p id=\"greeting\">No data yet, please wait</p>";
         await SseHelper.SendServerSentEventAsync(Response, indicatorEmptyGreetingHtml);
+
+        // Wait for 2 seconds
         await Task.Delay(2000);
+
+        // Send the greeting
         var indicatorGreetingHtml = $"<p id=\"greeting\">Hello, the time is {DateTimeOffset.UtcNow:O}</p>";
         await SseHelper.SendServerSentEventAsync(Response, indicatorGreetingHtml);
     }
 
     public async Task ClickToLoadMore()
     {
-        try
+        // Set SSE headers
+        await SseHelper.SetSseHeadersAsync(Response);
+
+        // Check if the "datastar" query parameter exists
+        if (HttpContext.Request.Query.ContainsKey("datastar"))
         {
-            // Set SSE headers
-            await SseHelper.SetSseHeadersAsync(Response);
+            // Get the "datastar" query parameter values
+            var json = HttpContext.Request.Query["datastar"].ToString();
 
-            // Check if the "datastar" query parameter exists
-            if (HttpContext.Request.Query.ContainsKey("datastar"))
+            // DEBUG: Print the raw JSON string
+            //Console.WriteLine($"Raw datastar value: {json}");
+
+            // Deserialize the JSON string into a ClickToLoadSignals object
+            var signals = JsonSerializer.Deserialize<ClickToLoadSignals>(json);
+
+            // DEBUG: Print the deserialized signals
+            //Console.WriteLine($"Deserialized signals: {signals.Offset}, {signals.Limit}");
+
+            // DEBUG: Print the deserialized values
+            // Console.WriteLine(signals != null
+            //     ? $"Offset: {signals.Offset}, Limit: {signals.Limit}"
+            //     : "Failed to deserialize datastar values");
+
+            // get the filtered notes
+            var filteredNotes = _notes
+                .Skip(signals.Offset)
+                .Take(signals.Limit)
+                .ToList();
+
+            // update the total counts
+            var totalCount = _totalNoteCount;
+            var currentCount = Math.Min(signals.Offset + filteredNotes.Count, totalCount);
+            var countHtml = $"<p id=\"total-count\">Showing {currentCount} of {totalCount} notes</p>";
+            await SseHelper.SendServerSentEventAsync(Response, countHtml);
+
+            // build the html for the new notes
+            var notesHtml = "";
+            foreach (var note in filteredNotes)
             {
-                // Get the "datastar" query parameter values
-                var json = HttpContext.Request.Query["datastar"].ToString();
-
-                // DEBUG: Print the raw JSON string
-                //Console.WriteLine($"Raw datastar value: {json}");
-
-                // Deserialize the JSON string into a ClickToLoadSignals object
-                var signals = JsonSerializer.Deserialize<ClickToLoadSignals>(json);
-
-                // DEBUG: Print the deserialized signals
-                //Console.WriteLine($"Deserialized signals: {signals.Offset}, {signals.Limit}");
-
-                // DEBUG: Print the deserialized values
-                // Console.WriteLine(signals != null
-                //     ? $"Offset: {signals.Offset}, Limit: {signals.Limit}"
-                //     : "Failed to deserialize datastar values");
-
-                // get the filtered notes
-                var filteredNotes = _notes
-                    .Skip(signals.Offset)
-                    .Take(signals.Limit)
-                    .ToList();
-
-                // update the total counts
-                var totalCount = _notes.Count;
-                var currentCount = Math.Min(signals.Offset + filteredNotes.Count, totalCount);
-                var countHtml = $"<p id=\"total-count\">Showing {currentCount} of {totalCount} notes</p>";
-                await SseHelper.SendServerSentEventAsync(Response, countHtml);
-
-                // build the html for the new notes
-                var notesHtml = "";
-                foreach (var note in filteredNotes)
-                {
-                    notesHtml += $@"
-                         <div class=""note-item"">
-                             <p>{note.Content}</p>
-                         </div>";
-                }
-                await SseHelper.SendServerSentEventAsync(Response, notesHtml, "#notes-list", "append", 1000, false, false);
-
-                // Check if we've loaded all notes
-                if (filteredNotes.Count == 0 || currentCount >= totalCount)
-                {
-                    var disabledButtonHtml = @"
-                        <button 
-                            id=""load-more-btn"" 
-                            class=""button-disabled""
-                            disabled>
-                            No More Results
-                        </button>";
-                    await SseHelper.SendServerSentEventAsync(Response, disabledButtonHtml, "#load-more-btn", "outer");
-                    return;
-                }
+                notesHtml += $@"
+                     <div class=""note-item"">
+                         <p>{note.Content}</p>
+                     </div>";
             }
-            else
+            await SseHelper.SendServerSentEventAsync(Response, notesHtml, "#notes-list", "append", 1000);
+
+            // Check if we've loaded all notes
+            if (filteredNotes.Count == 0 || currentCount >= totalCount)
             {
-                Console.WriteLine("No datastar query parameters found.");
+                var disabledButtonHtml = @"
+                    <button 
+                        id=""load-more-btn"" 
+                        class=""button-disabled""
+                        disabled>
+                        No More Results
+                    </button>";
+                await SseHelper.SendServerSentEventAsync(Response, disabledButtonHtml, "#load-more-btn", "outer");
             }
         }
-        catch (Exception e)
+        else
         {
-            Console.WriteLine(e);
-            throw;
+            Console.WriteLine("No datastar query parameters found.");
         }
+    }
+
+    [HttpDelete]
+    public async Task DeleteRowData(int id)
+    {
+        // Send SSE response
+        await SseHelper.SetSseHeadersAsync(Response);
+
+        // delete the note from the list
+        _notes.RemoveAll(x => x.Id == id);
+
+        // update counts
+        var countsHtml = _notes.Count == 0
+            ? $"<p id=\"total-count\">No more notes</p><button id=\"load-more-btn\" data-on-click=\"@get('Home/DeleteRowReset')\" class=\"button\">Reset</button>"
+            : $"<p id=\"total-count\">Showing {_notes.Count} notes</p>";
+        await SseHelper.SendServerSentEventAsync(Response, countsHtml);
+
+        // Send a Datastar remove fragment event
+        await SseHelper.SendServerSentEventAsync(Response, "", $"#note_{id}", "", 300, false, false, "datastar-remove-fragments");
+    }
+
+    public async Task DeleteRowReset()
+    {
+        // clear the _notes
+        _notes.Clear();
+
+        await SseHelper.SetSseHeadersAsync(Response);
+
+        var todoFaker = new Faker<Note>()
+            .RuleFor(t => t.Id, f => f.IndexFaker + 1)
+            .RuleFor(t => t.Content, f => f.Lorem.Sentence());
+
+        _notes = todoFaker.Generate(5).ToList();
+        _totalNoteCount = _notes.Count;
+
+        // update the total counts
+        var countHtml = $"<p id=\"total-count\">Showing {_totalNoteCount} notes</p><button id=\"load-more-btn\" class=\"button button-disabled\">Reset</button>";
+        await SseHelper.SendServerSentEventAsync(Response, countHtml);
+
+        // build the html for the new notes
+        var notesHtml = "<div id=\"notes-list\" class=\"notes-list\">";
+        foreach (var note in _notes)
+        {
+            notesHtml += $@"
+                    <div id=""note_{note.Id}"" class=""note-item"">
+                        <p>{note.Content}</p>
+                        <button data-on-click=""@delete('Home/DeleteRowData/{note.Id}')"">Delete</button>
+                    </div>";
+        }
+        notesHtml += "</div>";
+        await SseHelper.SendServerSentEventAsync(Response, notesHtml, "#notes-list");
     }
 
     #endregion
