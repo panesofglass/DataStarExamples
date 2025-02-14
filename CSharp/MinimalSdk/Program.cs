@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
-using RazorSlices;
 using MinimalSdk.Models;
 using MinimalSdk.Slices;
+using RazorSlices;
 using StarFederation.Datastar.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +28,6 @@ app.MapGet(
         var slice = DisplayDate.Create(DateTime.Now);
         var fragment = await slice.RenderAsync();
         await sse.MergeFragmentsAsync(fragment);
-        await Task.Delay(1000);
     }
 );
 
@@ -46,6 +45,19 @@ app.MapPost(
     {
         var signals = await dsSignals.ReadSignalsAsync<HomeSignals>();
         var newSignals = new HomeSignals { Output = $"Your input: {signals.Input}" };
+        await sse.MergeSignalsAsync(newSignals.Serialize());
+    }
+);
+
+app.MapGet("/quiz", () => Results.Extensions.RazorSlice<Quiz>());
+
+app.MapGet(
+    "/actions/quiz",
+    async (IDatastarServerSentEventService sse) =>
+    {
+        await sse.MergeFragmentsAsync("""<div id="question">What do you put in a toaster?</div>""");
+
+        var newSignals = new QuizSignals { Answer = "bread" };
         await sse.MergeSignalsAsync(newSignals.Serialize());
     }
 );
