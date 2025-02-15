@@ -3,6 +3,6 @@
 <div id="target">
   <span id="date">
     <b>@(Model.ToString("%y-%M-%d %h:%m:%s"))</b>
-    <button data-on-click="@@get('/removeDate')">Remove</button>
+    <button data-on-click="@@post('/removeDate')">Remove</button>
   </span>
 </div>

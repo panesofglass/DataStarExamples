@@ -31,7 +31,7 @@ app.MapGet(
     }
 );
 
-app.MapGet(
+app.MapPost(
     "/removeDate",
     async (IDatastarServerSentEventService sse) =>
     {
@@ -63,6 +63,8 @@ app.MapPost(
     }
 );
 
+Console.WriteLine($"ContentRoot Path: {builder.Environment.ContentRootPath}");
+Console.WriteLine($"WebRoot Path: {builder.Environment.WebRootPath}");
 Console.WriteLine(
     $"RuntimeFeature.IsDynamicCodeSupported = {RuntimeFeature.IsDynamicCodeSupported}"
 );
