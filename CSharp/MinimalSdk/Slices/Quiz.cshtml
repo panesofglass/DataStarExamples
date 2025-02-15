@@ -3,8 +3,8 @@
 
 <main>
   <div
-    data-signals="{'response':'','answer':''}"
-    data-computed-correct="$response.toLowerCase() == answer"
+    data-signals="{response:'',answer:''}"
+    data-computed-correct="$response.toLowerCase() == $answer"
   >
     <div id="question"></div>
     <button data-on-click="@@get('/actions/quiz')">Fetch a question</button>
@@ -16,9 +16,9 @@
     </button>
     <div data-show="$response != ''">
       You answered “<span data-text="$response"></span>”.
-      <span data-show="correct">That is correct ✅</span>
-      <span data-show="!correct">
-        The correct answer is “<span data-text="answer"></span>” 🤷
+      <span data-show="$correct">That is correct ✅</span>
+      <span data-show="!$correct">
+        The correct answer is “<span data-text="$answer"></span>” 🤷
       </span>
     </div>
   </div>
