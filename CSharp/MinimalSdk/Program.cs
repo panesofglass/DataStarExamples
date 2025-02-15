@@ -31,8 +31,8 @@ app.MapGet(
     }
 );
 
-app.MapPost(
-    "/removeDate",
+app.MapDelete(
+    "/displayDate",
     async (IDatastarServerSentEventService sse) =>
     {
         await sse.RemoveFragmentsAsync("#date");
@@ -52,7 +52,7 @@ app.MapPost(
 app.MapGet("/quiz", () => Results.Extensions.RazorSlice<Quiz>());
 
 app.MapPost(
-    "/actions/quiz",
+    "/quiz",
     async (IDatastarServerSentEventService sse) =>
     {
         await Task.Delay(1000);
