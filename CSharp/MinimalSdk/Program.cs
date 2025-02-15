@@ -51,10 +51,11 @@ app.MapPost(
 
 app.MapGet("/quiz", () => Results.Extensions.RazorSlice<Quiz>());
 
-app.MapGet(
+app.MapPost(
     "/actions/quiz",
     async (IDatastarServerSentEventService sse) =>
     {
+        await Task.Delay(1000);
         await sse.MergeFragmentsAsync("""<div id="question">What do you put in a toaster?</div>""");
 
         var newSignals = new QuizSignals { Answer = "bread" };

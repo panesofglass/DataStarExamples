@@ -7,17 +7,23 @@
     data-computed-correct="$response.toLowerCase() == $answer"
   >
     <div id="question"></div>
-    <button data-on-click="@@get('/actions/quiz')">Fetch a question</button>
+    <button
+      data-on-click="@@post('/actions/quiz')"
+      data-indicator-fetching
+    >
+      Fetch a question
+    </button>
+    <div data-class-loading="$fetching" class="indicator"></div>
     <button
       data-show="answer != ''"
       data-on-click="$response = prompt('Answer:') ?? ''"
     >
       BUZZ
     </button>
-    <div data-show="$response != ''">
+    <div data-show="$response != '' && !$fetching">
       You answered “<span data-text="$response"></span>”.
-      <span data-show="$correct">That is correct ✅</span>
-      <span data-show="!$correct">
+      <span data-show="$correct && !$fetching">That is correct ✅</span>
+      <span data-show="!$correct && !$fetching">
         The correct answer is “<span data-text="$answer"></span>” 🤷
       </span>
     </div>
